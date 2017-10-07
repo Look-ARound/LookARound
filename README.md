@@ -2,6 +2,10 @@
 
 Wherever you are, look around with AR to see recommended places to visit.
 
+## LookARound Wireframes
+
+<img src='https://user-images.githubusercontent.com/1326734/31063111-08f555d2-a6e5-11e7-830f-7c22f45cbf56.gif' title='Video Walkthrough' width='' alt=‘LookARound Wireframes’ />
+
 ## User Stories
 
 Initial: AR View
@@ -50,11 +54,10 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 ## Notes
 
 
-
 ## License
   MIT License
 
-  Copyright (c) 2017 Ali Mir, John Nguyen, Siji Rachel Tom, Angela Yu
+  Copyright (c) 2017 Ali Mir, Angela Yu, John Nguyen, Siji Rachel Tom 
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
