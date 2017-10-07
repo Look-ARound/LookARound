@@ -1,8 +1,8 @@
-# lookaround
+## lookaround
 
 Wherever you are, look around with AR to see recommended places to visit.
 
-## LookARound Wireframes
+## Wireframes
 
 <img src='https://user-images.githubusercontent.com/1326734/31310791-1c50c4c8-ab53-11e7-9ce8-8ce70c17859b.jpeg' title='Wireframe' width='' alt=‘LookARound Wireframes’ />
 
