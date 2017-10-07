@@ -4,7 +4,7 @@ Wherever you are, look around with AR to see recommended places to visit.
 
 ## LookARound Wireframes
 
-<img src='https://user-images.githubusercontent.com/1326734/31310505-0fb7ad12-ab4e-11e7-9adb-e0eec57cc102.jpeg' title='Wireframe' width='' alt=‘LookARound Wireframes’ />
+<img src='https://user-images.githubusercontent.com/1326734/31310791-1c50c4c8-ab53-11e7-9ce8-8ce70c17859b.jpeg' title='Wireframe' width='' alt=‘LookARound Wireframes’ />
 
 ## User Stories
 
