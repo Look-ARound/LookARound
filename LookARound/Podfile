@@ -10,6 +10,7 @@ target 'LookARound' do
   pod 'BDBOAuth1Manager'
   pod 'MBProgressHUD'
   pod 'SwiftyJSON'
+  pod 'Firebase/Core'
   # pod 'FacebookCore'  ## Waiting until FB pushes Swift 4 fix
   # pod 'FacebookLogin' ## Waiting until FB pushes Swift 4 fix
   # pod 'Mapbox-iOS-SDK', '~> 3.6'
