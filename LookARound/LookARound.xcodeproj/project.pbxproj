@@ -18,6 +18,10 @@
 		773435871F8C9CBF00375221 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 773435861F8C9CBF00375221 /* Login.storyboard */; };
 		773435891F8C9CDF00375221 /* Filter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 773435881F8C9CDF00375221 /* Filter.storyboard */; };
 		7734358B1F8C9CEF00375221 /* Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7734358A1F8C9CEF00375221 /* Detail.storyboard */; };
+		773B89801F8CA1680010191C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773B897F1F8CA1680010191C /* User.swift */; };
+		773B89821F8CA3F90010191C /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773B89811F8CA3F90010191C /* Place.swift */; };
+		777763BC1F8E11D00018D621 /* LABrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777763BB1F8E11D00018D621 /* LABrand.swift */; };
+		777763BE1F8E1FE30018D621 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777763BD1F8E1FE30018D621 /* Annotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +39,10 @@
 		773435861F8C9CBF00375221 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		773435881F8C9CDF00375221 /* Filter.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Filter.storyboard; sourceTree = "<group>"; };
 		7734358A1F8C9CEF00375221 /* Detail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Detail.storyboard; sourceTree = "<group>"; };
+		773B897F1F8CA1680010191C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		773B89811F8CA3F90010191C /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
+		777763BB1F8E11D00018D621 /* LABrand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LABrand.swift; sourceTree = "<group>"; };
+		777763BD1F8E1FE30018D621 /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
 		FC31536806695EE09312AAF8 /* Pods-LookARound.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LookARound.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LookARound/Pods-LookARound.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,6 +115,10 @@
 		773435801F8C9C3C00375221 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				773B897F1F8CA1680010191C /* User.swift */,
+				777763BD1F8E1FE30018D621 /* Annotation.swift */,
+				773B89811F8CA3F90010191C /* Place.swift */,
+				777763BB1F8E11D00018D621 /* LABrand.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -282,9 +294,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				777763BC1F8E11D00018D621 /* LABrand.swift in Sources */,
+				773B89801F8CA1680010191C /* User.swift in Sources */,
 				773435711F8C9C1500375221 /* ViewController.swift in Sources */,
 				7734356F1F8C9C1500375221 /* Scene.swift in Sources */,
 				7734356B1F8C9C1500375221 /* AppDelegate.swift in Sources */,
+				777763BE1F8E1FE30018D621 /* Annotation.swift in Sources */,
+				773B89821F8CA3F90010191C /* Place.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
