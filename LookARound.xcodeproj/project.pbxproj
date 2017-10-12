@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		09A6B8D38A0198D6D8F57523 /* Pods_LookARound.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29FB2778497F0154DB2D1406 /* Pods_LookARound.framework */; };
 		49412ED01F8E7E5400F8830C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49412ECF1F8E79FD00F8830C /* GoogleService-Info.plist */; };
-		49412ED11F8E7E6300F8830C /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7734357A1F8C9C1500375221 /* Info.plist */; };
 		7734356B1F8C9C1500375221 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7734356A1F8C9C1500375221 /* AppDelegate.swift */; };
 		7734356D1F8C9C1500375221 /* Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7734356C1F8C9C1500375221 /* Scene.sks */; };
 		7734356F1F8C9C1500375221 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7734356E1F8C9C1500375221 /* Scene.swift */; };
@@ -104,9 +103,8 @@
 			isa = PBXGroup;
 			children = (
 				773435851F8C9C6B00375221 /* Storyboards */,
-				773435841F8C9C5C00375221 /* Clients */,
-				773435821F8C9C4B00375221 /* ViewControllers */,
-				773435811F8C9C4300375221 /* Views */,
+				77B97B5B1F8F723500F7C24D /* Controllers */,
+				77B97B5A1F8F722F00F7C24D /* Views */,
 				773435801F8C9C3C00375221 /* Models */,
 				7734356A1F8C9C1500375221 /* AppDelegate.swift */,
 				7734356C1F8C9C1500375221 /* Scene.sks */,
@@ -133,27 +131,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		773435811F8C9C4300375221 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		773435821F8C9C4B00375221 /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		773435841F8C9C5C00375221 /* Clients */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Clients;
-			sourceTree = "<group>";
-		};
 		773435851F8C9C6B00375221 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +140,20 @@
 				7734358A1F8C9CEF00375221 /* Detail.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		77B97B5A1F8F722F00F7C24D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		77B97B5B1F8F723500F7C24D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,7 +220,6 @@
 			files = (
 				7734356D1F8C9C1500375221 /* Scene.sks in Resources */,
 				49412ED01F8E7E5400F8830C /* GoogleService-Info.plist in Resources */,
-				49412ED11F8E7E6300F8830C /* Info.plist in Resources */,
 				773435791F8C9C1500375221 /* LaunchScreen.storyboard in Resources */,
 				773435891F8C9CDF00375221 /* Filter.storyboard in Resources */,
 				773435761F8C9C1500375221 /* Assets.xcassets in Resources */,
@@ -269,6 +259,11 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-LookARound/Pods-LookARound-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/BDBOAuth1Manager/BDBOAuth1Manager.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
@@ -278,6 +273,11 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BDBOAuth1Manager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
@@ -457,7 +457,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 396S2E45WK;
+				DEVELOPMENT_TEAM = PUQ8TNP3W4;
 				INFOPLIST_FILE = LookARound/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.LookARound;
@@ -473,7 +473,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 396S2E45WK;
+				DEVELOPMENT_TEAM = PUQ8TNP3W4;
 				INFOPLIST_FILE = LookARound/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.LookARound;
