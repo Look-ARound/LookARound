@@ -12,7 +12,6 @@
 		7734356B1F8C9C1500375221 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7734356A1F8C9C1500375221 /* AppDelegate.swift */; };
 		7734356D1F8C9C1500375221 /* Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7734356C1F8C9C1500375221 /* Scene.sks */; };
 		7734356F1F8C9C1500375221 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7734356E1F8C9C1500375221 /* Scene.swift */; };
-		773435711F8C9C1500375221 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773435701F8C9C1500375221 /* ViewController.swift */; };
 		773435741F8C9C1500375221 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 773435721F8C9C1500375221 /* Main.storyboard */; };
 		773435761F8C9C1500375221 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 773435751F8C9C1500375221 /* Assets.xcassets */; };
 		773435791F8C9C1500375221 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 773435771F8C9C1500375221 /* LaunchScreen.storyboard */; };
@@ -21,10 +20,12 @@
 		7734358B1F8C9CEF00375221 /* Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7734358A1F8C9CEF00375221 /* Detail.storyboard */; };
 		773B89801F8CA1680010191C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773B897F1F8CA1680010191C /* User.swift */; };
 		773B89821F8CA3F90010191C /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773B89811F8CA3F90010191C /* Place.swift */; };
+		774FF1DD1F8F8B3F00E632A4 /* ARoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774FF1DC1F8F8B3F00E632A4 /* ARoundViewController.swift */; };
 		777763BC1F8E11D00018D621 /* LABrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777763BB1F8E11D00018D621 /* LABrand.swift */; };
 		777763BE1F8E1FE30018D621 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777763BD1F8E1FE30018D621 /* Annotation.swift */; };
 		77AA66271F8EF0A500F477DB /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77AA66261F8EF0A500F477DB /* AnnotationView.swift */; };
 		77AA66291F8EF61900F477DB /* MapItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77AA66281F8EF61900F477DB /* MapItem.swift */; };
+		77ECD44B1F8F752F0056ED2C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77ECD44A1F8F752F0056ED2C /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +36,6 @@
 		7734356A1F8C9C1500375221 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7734356C1F8C9C1500375221 /* Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene.sks; sourceTree = "<group>"; };
 		7734356E1F8C9C1500375221 /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
-		773435701F8C9C1500375221 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		773435731F8C9C1500375221 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		773435751F8C9C1500375221 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		773435781F8C9C1500375221 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -45,10 +45,12 @@
 		7734358A1F8C9CEF00375221 /* Detail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Detail.storyboard; sourceTree = "<group>"; };
 		773B897F1F8CA1680010191C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		773B89811F8CA3F90010191C /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
+		774FF1DC1F8F8B3F00E632A4 /* ARoundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARoundViewController.swift; sourceTree = "<group>"; };
 		777763BB1F8E11D00018D621 /* LABrand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LABrand.swift; sourceTree = "<group>"; };
 		777763BD1F8E1FE30018D621 /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
 		77AA66261F8EF0A500F477DB /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 		77AA66281F8EF61900F477DB /* MapItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapItem.swift; sourceTree = "<group>"; };
+		77ECD44A1F8F752F0056ED2C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		FC31536806695EE09312AAF8 /* Pods-LookARound.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LookARound.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LookARound/Pods-LookARound.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -109,7 +111,6 @@
 				7734356A1F8C9C1500375221 /* AppDelegate.swift */,
 				7734356C1F8C9C1500375221 /* Scene.sks */,
 				7734356E1F8C9C1500375221 /* Scene.swift */,
-				773435701F8C9C1500375221 /* ViewController.swift */,
 				773435751F8C9C1500375221 /* Assets.xcassets */,
 				7734357A1F8C9C1500375221 /* Info.plist */,
 				49412ECF1F8E79FD00F8830C /* GoogleService-Info.plist */,
@@ -152,6 +153,8 @@
 		77B97B5B1F8F723500F7C24D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				77ECD44A1F8F752F0056ED2C /* LoginViewController.swift */,
+				774FF1DC1F8F8B3F00E632A4 /* ARoundViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -264,10 +267,8 @@
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -278,10 +279,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -312,12 +311,13 @@
 			files = (
 				777763BC1F8E11D00018D621 /* LABrand.swift in Sources */,
 				773B89801F8CA1680010191C /* User.swift in Sources */,
-				773435711F8C9C1500375221 /* ViewController.swift in Sources */,
 				7734356F1F8C9C1500375221 /* Scene.swift in Sources */,
+				774FF1DD1F8F8B3F00E632A4 /* ARoundViewController.swift in Sources */,
 				7734356B1F8C9C1500375221 /* AppDelegate.swift in Sources */,
 				77AA66271F8EF0A500F477DB /* AnnotationView.swift in Sources */,
 				777763BE1F8E1FE30018D621 /* Annotation.swift in Sources */,
 				773B89821F8CA3F90010191C /* Place.swift in Sources */,
+				77ECD44B1F8F752F0056ED2C /* LoginViewController.swift in Sources */,
 				77AA66291F8EF61900F477DB /* MapItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
