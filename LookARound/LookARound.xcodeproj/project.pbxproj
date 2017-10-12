@@ -24,6 +24,8 @@
 		773B89821F8CA3F90010191C /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773B89811F8CA3F90010191C /* Place.swift */; };
 		777763BC1F8E11D00018D621 /* LABrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777763BB1F8E11D00018D621 /* LABrand.swift */; };
 		777763BE1F8E1FE30018D621 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777763BD1F8E1FE30018D621 /* Annotation.swift */; };
+		77AA66271F8EF0A500F477DB /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77AA66261F8EF0A500F477DB /* AnnotationView.swift */; };
+		77AA66291F8EF61900F477DB /* MapItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77AA66281F8EF61900F477DB /* MapItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,8 @@
 		773B89811F8CA3F90010191C /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		777763BB1F8E11D00018D621 /* LABrand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LABrand.swift; sourceTree = "<group>"; };
 		777763BD1F8E1FE30018D621 /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
+		77AA66261F8EF0A500F477DB /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
+		77AA66281F8EF61900F477DB /* MapItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapItem.swift; sourceTree = "<group>"; };
 		FC31536806695EE09312AAF8 /* Pods-LookARound.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LookARound.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LookARound/Pods-LookARound.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,6 +123,8 @@
 		773435801F8C9C3C00375221 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				77AA66261F8EF0A500F477DB /* AnnotationView.swift */,
+				77AA66281F8EF61900F477DB /* MapItem.swift */,
 				773B897F1F8CA1680010191C /* User.swift */,
 				777763BD1F8E1FE30018D621 /* Annotation.swift */,
 				773B89811F8CA3F90010191C /* Place.swift */,
@@ -309,8 +315,10 @@
 				773435711F8C9C1500375221 /* ViewController.swift in Sources */,
 				7734356F1F8C9C1500375221 /* Scene.swift in Sources */,
 				7734356B1F8C9C1500375221 /* AppDelegate.swift in Sources */,
+				77AA66271F8EF0A500F477DB /* AnnotationView.swift in Sources */,
 				777763BE1F8E1FE30018D621 /* Annotation.swift in Sources */,
 				773B89821F8CA3F90010191C /* Place.swift in Sources */,
+				77AA66291F8EF61900F477DB /* MapItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
