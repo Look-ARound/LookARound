@@ -26,6 +26,7 @@
 		777898E61F903C06004EAE3D /* GraphRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777898E51F903C06004EAE3D /* GraphRequests.swift */; };
 		77AA66271F8EF0A500F477DB /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77AA66261F8EF0A500F477DB /* AnnotationView.swift */; };
 		77AA66291F8EF61900F477DB /* MapItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77AA66281F8EF61900F477DB /* MapItem.swift */; };
+		77D0A15A1F9098A600597CAC /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D0A1591F9098A600597CAC /* Place.swift */; };
 		77ECD44B1F8F752F0056ED2C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77ECD44A1F8F752F0056ED2C /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,7 @@
 		777898E51F903C06004EAE3D /* GraphRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphRequests.swift; sourceTree = "<group>"; };
 		77AA66261F8EF0A500F477DB /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 		77AA66281F8EF61900F477DB /* MapItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapItem.swift; sourceTree = "<group>"; };
+		77D0A1591F9098A600597CAC /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		77ECD44A1F8F752F0056ED2C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		FC31536806695EE09312AAF8 /* Pods-LookARound.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LookARound.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LookARound/Pods-LookARound.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -131,6 +133,7 @@
 				777763BD1F8E1FE30018D621 /* Annotation.swift */,
 				773B89811F8CA3F90010191C /* PlaceDoNotUse.swift */,
 				777763BB1F8E11D00018D621 /* LABrand.swift */,
+				77D0A1591F9098A600597CAC /* Place.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				777898E61F903C06004EAE3D /* GraphRequests.swift in Sources */,
 				777763BC1F8E11D00018D621 /* LABrand.swift in Sources */,
 				773B89801F8CA1680010191C /* User.swift in Sources */,
+				77D0A15A1F9098A600597CAC /* Place.swift in Sources */,
 				7734356F1F8C9C1500375221 /* Scene.swift in Sources */,
 				774FF1DD1F8F8B3F00E632A4 /* ARoundViewController.swift in Sources */,
 				7734356B1F8C9C1500375221 /* AppDelegate.swift in Sources */,

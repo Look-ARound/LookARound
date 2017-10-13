@@ -18,9 +18,9 @@ class MapItem: MKMapItem {
      url: URL?
      timeZone: TimeZone?
      */
-    var place: Place?
+    var place: PlaceDoNotUse?
     
-    init(place: Place) {
+    init(place: PlaceDoNotUse) {
         self.place = place
         super.init(placemark: place)
     }
