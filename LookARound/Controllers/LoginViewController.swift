@@ -8,13 +8,18 @@
 
 import UIKit
 import FacebookLogin
+import FacebookCore
+import AFNetworking
 
-class LoginViewController: UIViewController {
-
+class LoginViewController: UIViewController, LoginButtonDelegate {
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var profileImageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("presenting login button")
-        let loginButton = LoginButton(readPermissions: [ .publicProfile ])
+        
+        let loginButton = LoginButton(readPermissions: [ .publicProfile, .userFriends ])
         loginButton.center = view.center
         
         view.addSubview(loginButton)
@@ -27,15 +32,38 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
+        print("login")
+        AppEventsLogger.log("Login")
+        
     }
-    */
+    
+    func loginButtonDidLogOut(_ loginButton: LoginButton) {
+        print("logout")
+        AppEventsLogger.log("Logout")
+    }
 
+    @IBAction func onAboutMe(_ sender: Any) {
+        print("fetching me")
+        print("accessToken: \(String(describing: AccessToken.current))")
+        let connection = GraphRequestConnection()
+        connection.add(MyProfileRequest()) { response, result in
+            switch result {
+            case .success(let response):
+                self.nameLabel.text = response.name
+                self.nameLabel.sizeToFit()
+                let url = URL(string: response.photoURL)
+                self.profileImageView.setImageWith(url!)
+                print("Custom Graph Request Succeeded: \(response)")
+                print("My facebook id is \(response.id)")
+                print("My name is \(response.name)")
+            case .failed(let error):
+                print("Custom Graph Request Failed: \(error)")
+            }
+        }
+        connection.start()
+    }
 }
+
+// MARK: - Delegates
+

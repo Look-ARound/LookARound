@@ -27,7 +27,7 @@ enum idType {   // If Facebook doesn't have a good Place object, use OSM or Yelp
     case yelp   // Yelp
 }
 
-class Place: MKPlacemark {
+class PlaceDoNotUse: MKPlacemark {
     /* Inherited properties:
          name: String
          coordinate: CLLocationCoordinate2D (latitude: , longitude:)
