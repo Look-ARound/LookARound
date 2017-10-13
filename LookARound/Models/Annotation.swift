@@ -21,7 +21,7 @@ class Annotation: NSObject, MKAnnotation {
         if let place = place {
             self.title = place.name
             self.about = place.about
-            self.coordinate = place.coordinate
+            self.coordinate = place.location
         } else {
             self.coordinate = CLLocationCoordinate2D(latitude: 37.4816734, longitude: -122.1556204)
         }
