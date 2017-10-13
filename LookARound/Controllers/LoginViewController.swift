@@ -15,6 +15,8 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var placeLabel: UILabel!
+    @IBOutlet weak var placeImageView: UIImageView!
+    @IBOutlet weak var placeContextLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,15 +67,20 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         connection.start()
     }
     
+    // Sample code for calling a place search to request an array of places near you
     @IBAction func onAroundMe(_ sender: Any) {
         print("fetching places")
         let connection = GraphRequestConnection()
         connection.add(PlaceSearchRequest()) { response, result in
             switch result {
             case .success(let response):
-                self.placeLabel.text = response.places[0].name
+                self.placeLabel.text = response.places[1].name
                 self.placeLabel.sizeToFit()
-                print("Custom Graph Request Succeeded: \(response)")
+                let url = URL(string: response.places[1].picture!)
+                self.placeImageView.setImageWith(url!)
+                self.placeContextLabel.text = response.places[1].context
+                self.placeContextLabel.sizeToFit()
+                // print("Custom Graph Request Succeeded: \(response)")
             case .failed(let error):
                 print("Custom Graph Request Failed: \(error)")
             }

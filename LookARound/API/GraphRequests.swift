@@ -45,7 +45,7 @@ struct PlaceSearchRequest: GraphRequestProtocol {
         init(rawResponse: Any?) {
             // Decode JSON from rawResponse into other properties here.
             let json = JSON(rawResponse!)
-            print(json)
+            // print(json)
             places = []
             for spot in json["data"].arrayValue {
                 let placeID = spot["id"].intValue
@@ -54,14 +54,20 @@ struct PlaceSearchRequest: GraphRequestProtocol {
                 let placeLon = spot["location"]["longitude"].double
                 let coordinates = CLLocationCoordinate2D(latitude: placeLat!, longitude: placeLon!)
                 let placeAddr = spot["location"]["street"].stringValue
+                
                 let thisPlace = Place(id: Int64(placeID), name: placeName, location: coordinates, address: placeAddr)
+                
+                thisPlace.about = spot["about"].stringValue
+                thisPlace.picture = spot["picture"]["data"]["url"].stringValue
+                thisPlace.context = spot["context"]["friends_who_like"]["summary"]["social_sentence"].stringValue
+                thisPlace.checkins = spot["checkins"].intValue
                 places.append(thisPlace)
             }
         }
     }
     
-    var graphPath = "/search?type=place&center=37.4816734,-122.1556204" //&categories=[\"FOOD_BEVERAGE\",\"FITNESS_RECREATION\",\"SHOPPING_RETAIL\"]"
-    var parameters: [String: Any]? = ["fields": "name, about, id, location, context, engagement, checkins, picture, photos, cover"]
+    var graphPath = "/search?type=place&center=37.4816734,-122.1556204&categories=[%22FOOD_BEVERAGE%22,%22FITNESS_RECREATION%22]" //,%22SHOPPING_RETAIL%22]"
+    var parameters: [String: Any]? = ["fields": "name, about, id, location, context, engagement, checkins, picture, cover"]
     var accessToken = AccessToken.current
     var httpMethod: GraphRequestHTTPMethod = .GET
     var apiVersion: GraphAPIVersion = .defaultVersion

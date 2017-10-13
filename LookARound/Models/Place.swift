@@ -27,7 +27,7 @@ class Place: NSObject {
     var address: String
     var about: String?
     var categories: [Categories]?
-    var picture: String?
+    var picture: String? = ""
     var context_count: Int?
     var context: String?
     var checkins: Int?
