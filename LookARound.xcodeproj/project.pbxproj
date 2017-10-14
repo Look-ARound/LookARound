@@ -34,6 +34,7 @@
 		29FB2778497F0154DB2D1406 /* Pods_LookARound.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LookARound.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		49412ECF1F8E79FD00F8830C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "LookARound/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		6AEEA033A3A22E4DD0EC7964 /* Pods-LookARound.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LookARound.release.xcconfig"; path = "Pods/Target Support Files/Pods-LookARound/Pods-LookARound.release.xcconfig"; sourceTree = "<group>"; };
+		702FB57F1F91B8C000D430FE /* ARCL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ARCL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		773435671F8C9C1500375221 /* LookARound.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LookARound.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7734356A1F8C9C1500375221 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7734356C1F8C9C1500375221 /* Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene.sks; sourceTree = "<group>"; };
@@ -83,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				29FB2778497F0154DB2D1406 /* Pods_LookARound.framework */,
+				702FB57F1F91B8C000D430FE /* ARCL.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

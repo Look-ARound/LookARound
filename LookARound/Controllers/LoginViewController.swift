@@ -18,6 +18,8 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
     @IBOutlet weak var placeImageView: UIImageView!
     @IBOutlet weak var placeContextLabel: UILabel!
     
+    var completionHandler: (([Place]) -> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("presenting login button")
@@ -81,6 +83,8 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
                 self.placeContextLabel.text = response.places[1].context
                 self.placeContextLabel.sizeToFit()
                 // print("Custom Graph Request Succeeded: \(response)")
+                self.completionHandler?(response.places)
+                self.dismiss(animated: true, completion: nil )
             case .failed(let error):
                 print("Custom Graph Request Failed: \(error)")
             }
