@@ -60,6 +60,8 @@ struct PlaceSearchRequest: GraphRequestProtocol {
                 thisPlace.about = spot["about"].stringValue
                 thisPlace.picture = spot["picture"]["data"]["url"].stringValue
                 thisPlace.context = spot["context"]["friends_who_like"]["summary"]["social_sentence"].stringValue
+                thisPlace.likes = spot["engagement"]["count"].intValue
+                thisPlace.engagement = spot["engagement"]["social_sentence"].stringValue
                 thisPlace.checkins = spot["checkins"].intValue
                 places.append(thisPlace)
             }
