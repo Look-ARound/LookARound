@@ -84,7 +84,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
                 self.placeContextLabel.sizeToFit()
                 // print("Custom Graph Request Succeeded: \(response)")
                 self.completionHandler?(response.places)
-                self.dismiss(animated: true, completion: nil )
+                //self.dismiss(animated: true, completion: nil )
             case .failed(let error):
                 print("Custom Graph Request Failed: \(error)")
             }
