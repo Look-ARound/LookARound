@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -33,26 +34,42 @@
                                     <action selector="onFriendsButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="JFk-30-dVJ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qwL-JG-K2x">
+                                <rect key="frame" x="275" y="617" width="80" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="zBd-Af-drd"/>
+                                </constraints>
+                                <inset key="titleEdgeInsets" minX="10" minY="4" maxX="10" maxY="4"/>
+                                <state key="normal" title="Filters"/>
+                                <connections>
+                                    <action selector="onFilterButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="3Lp-l4-2FY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="qwL-JG-K2x" secondAttribute="bottom" constant="20" id="9xl-4y-XSk"/>
+                            <constraint firstItem="qwL-JG-K2x" firstAttribute="trailing" secondItem="UHX-6d-4P4" secondAttribute="trailing" id="G0H-hk-BxJ"/>
                             <constraint firstAttribute="bottom" secondItem="71t-iE-43l" secondAttribute="bottom" id="NfP-OC-4c5"/>
                             <constraint firstItem="71t-iE-43l" firstAttribute="top" secondItem="mb1-1B-bIi" secondAttribute="top" id="Wwf-vS-m1X"/>
                             <constraint firstItem="71t-iE-43l" firstAttribute="trailing" secondItem="mb1-1B-bIi" secondAttribute="trailing" id="dwJ-uu-IiL"/>
                             <constraint firstItem="UHX-6d-4P4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mb1-1B-bIi" secondAttribute="leading" constant="12" id="hNw-m1-U4W"/>
                             <constraint firstItem="UHX-6d-4P4" firstAttribute="top" secondItem="mb1-1B-bIi" secondAttribute="top" constant="20" id="kGE-jk-mrV"/>
+                            <constraint firstItem="qwL-JG-K2x" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mb1-1B-bIi" secondAttribute="leadingMargin" constant="12" id="krn-yT-yex"/>
                             <constraint firstItem="UHX-6d-4P4" firstAttribute="trailing" secondItem="mb1-1B-bIi" secondAttribute="trailing" constant="-20" id="n8J-BT-iFG"/>
                             <constraint firstItem="71t-iE-43l" firstAttribute="leading" secondItem="mb1-1B-bIi" secondAttribute="leading" id="s0t-i3-yIN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="P3l-nB-hn5"/>
                     </view>
                     <connections>
+                        <outlet property="filterButton" destination="qwL-JG-K2x" id="bw3-NA-eDc"/>
                         <outlet property="friendsButton" destination="UHX-6d-4P4" id="eBC-mo-nnq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="32.799999999999997" y="124.58770614692655"/>
+            <point key="canvasLocation" x="32.5" y="124.5"/>
         </scene>
     </scenes>
 </document>

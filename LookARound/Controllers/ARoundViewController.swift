@@ -16,6 +16,8 @@ import CoreLocation
 @available(iOS 11.0, *)
 class ARoundViewController: UIViewController, SceneLocationViewDelegate {
     @IBOutlet weak var friendsButton: UIButton!
+    @IBOutlet weak var filterButton: UIButton!
+    
     let sceneLocationView = SceneLocationView()
     
     override func viewDidLoad() {
@@ -23,9 +25,15 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate {
         
         addARScene()
         
-        friendsButton.setTitleColor(UIColor.LABrand.primary, for: .normal)
-        friendsButton.layer.cornerRadius = friendsButton.frame.size.height * 0.5
-        friendsButton.clipsToBounds = true
+        prepButtonsWithARTheme(buttons: [filterButton, friendsButton])
+    }
+    
+    func prepButtonsWithARTheme(buttons : [UIButton]) {
+        for button in buttons {
+            button.setTitleColor(UIColor.LABrand.primary, for: .normal)
+            button.layer.cornerRadius = friendsButton.frame.size.height * 0.5
+            button.clipsToBounds = true
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -95,6 +103,13 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate {
             self.addPlaces( places: places )
         }
         present(loginViewController, animated: true, completion: nil)
+    }
+    
+    @IBAction func onFilterButton(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Filter", bundle: nil)
+        let filterVC = storyboard.instantiateViewController(withIdentifier: "FilterNavigationControllerID")
+        
+        present(filterVC, animated: true, completion: nil)
     }
     
     // MARK: - SceneLocationViewDelegate
