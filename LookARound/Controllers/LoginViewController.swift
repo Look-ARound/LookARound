@@ -32,11 +32,6 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
         print("login")
         AppEventsLogger.log("Login")
@@ -72,24 +67,22 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
     // Sample code for calling a place search to request an array of places near you
     @IBAction func onAroundMe(_ sender: Any) {
         print("fetching places")
-        let connection = GraphRequestConnection()
-        connection.add(PlaceSearchRequest()) { response, result in
-            switch result {
-            case .success(let response):
-                self.placeLabel.text = response.places[1].name
+        let categories = [FilterCategory.Food_Beverage, FilterCategory.Fitness_Recreation]
+        PlaceSearch().fetchPlaces(with: categories, success: { (places : [Place]?) in
+            if let places = places {
+                self.placeLabel.text = places[1].name
                 self.placeLabel.sizeToFit()
-                let url = URL(string: response.places[1].picture!)
+                let url = URL(string: places[1].picture!)
                 self.placeImageView.setImageWith(url!)
-                self.placeContextLabel.text = response.places[1].context
+                self.placeContextLabel.text = places[1].context
                 self.placeContextLabel.sizeToFit()
                 // print("Custom Graph Request Succeeded: \(response)")
-                self.completionHandler?(response.places)
-                //self.dismiss(animated: true, completion: nil )
-            case .failed(let error):
-                print("Custom Graph Request Failed: \(error)")
+                self.completionHandler?(places)
             }
+            //self.dismiss(animated: true, completion: nil )
+        }) { (error: Error) in
+            print("Custom Graph Request Failed: \(error)")
         }
-        connection.start()
     }
 }
 

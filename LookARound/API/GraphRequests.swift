@@ -66,12 +66,13 @@ func graphPathString(categories : [FilterCategory]) -> String {
     return graphPath
 }
 
-struct PlaceSearchRequest: GraphRequestProtocol {
+/// Use PlaceSearch().fetchPlaces instead of using this directly.
+private struct PlaceSearchRequest: GraphRequestProtocol {
     
     /* API response for Angela Yu searching at Builing 20:
      use JSON viewer to collapse and expand tree here https://codebeautify.org/jsonviewer/cb147a70
      */
-    var graphPath = graphPathString(categories: [FilterCategory.Food_Beverage, FilterCategory.Fitness_Recreation])
+    var graphPath: String = "" // This string will be populated with the graphPathString function which is called by PlaceSearch().fetchPlaces.
     var parameters: [String: Any]? = ["fields": "name, about, id, location, context, engagement, checkins, picture, cover"]
     var accessToken = AccessToken.current
     var httpMethod: GraphRequestHTTPMethod = .GET
@@ -80,7 +81,7 @@ struct PlaceSearchRequest: GraphRequestProtocol {
     typealias Response = PlaceSearchResponse
 }
 
-struct PlaceSearchResponse: GraphResponseProtocol {
+private struct PlaceSearchResponse: GraphResponseProtocol {
     var places: [Place]
     
     init(rawResponse: Any?) {
