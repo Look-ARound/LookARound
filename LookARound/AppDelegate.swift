@@ -22,8 +22,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // FirebaseApp.configure()
 //        let storyboard = UIStoryboard(name: "Login", bundle: nil)
 //        let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
-//        
-//        window?.rootViewController = loginViewController
+
+//        let storyboard = UIStoryboard(name: "Filter", bundle: nil)
+//        let filterVC = storyboard.instantiateViewController(withIdentifier: "FilterNavigationControllerID")
+//
+//        window?.rootViewController = filterVC
 //        window?.makeKeyAndVisible()
         
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
