@@ -155,7 +155,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         PlaceSearch().fetchPlaces(with: filterCategories, success: { [weak self] (places: [Place]?) in
             if let places = places {
                 self?.addPlaces(places: places)
-                // TODO John: How do you reload the pins?
+                self?.mapView.addPlaces(places: places)
             }
         }) { (error: Error) in
             print("Error fetching places with updated filters. Error: \(error)")
