@@ -84,10 +84,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
             let name = place.name
             let pinName = "pin_home"
             
-            //let pinCoordinate = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
-            let pinCoordinate = place.location
-            
-            let pinLocation = CLLocation(coordinate: pinCoordinate, altitude: 236)
+            let pinLocation = CLLocation(latitude: place.latitude, longitude: place.longitude)
             
             let origImage = UIImage(named: pinName)!
             let pinImage =  origImage.addText(name as! NSString, atPoint: CGPoint(x: 15, y: 0), textColor:nil, textFont:UIFont.systemFont(ofSize: 26))
@@ -102,12 +99,15 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     
     @IBAction func onFriendsButton(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
-        let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        let loginNavigationController = storyboard.instantiateViewController(withIdentifier: "LoginNavigationController") as! UINavigationController
+        
+        let loginViewController = loginNavigationController.topViewController as! LoginViewController
         loginViewController.completionHandler = { places in
             print( "* places.count=\(places.count)")
             self.addPlaces( places: places )
         }
-        present(loginViewController, animated: true, completion: nil)
+        
+        present(loginNavigationController, animated: true, completion: nil)
     }
     
     @IBAction func onFilterButton(_ sender: Any) {

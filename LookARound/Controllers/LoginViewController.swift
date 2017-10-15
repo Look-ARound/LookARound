@@ -77,7 +77,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
                 self.placeImageView.setImageWith(url!)
                 self.placeContextLabel.text = places[1].context
                 self.placeContextLabel.sizeToFit()
-                self.places = response.places
+                self.places = places
                 self.performSegue(withIdentifier: "results", sender: self)
                 // print("Custom Graph Request Succeeded: \(response)")
                 self.completionHandler?(places)
@@ -89,6 +89,11 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
     }
     
     // MARK: - Navigation
+    
+    @IBAction func onBackButton(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "results" {
             let destinationVC = segue.destination as! SearchResultsViewController

@@ -69,11 +69,13 @@ func graphPathString(categories : [FilterCategory]) -> String {
 /// Use PlaceSearch().fetchPlaces instead of using this directly.
 private struct PlaceSearchRequest: GraphRequestProtocol {
     
-    /* API response for Angela Yu searching at Builing 20:
-     use JSON viewer to collapse and expand tree here https://codebeautify.org/jsonviewer/cb147a70
-     */
+    // GraphPath documentation at https://developers.facebook.com/docs/places/web/search
     var graphPath: String = "" // This string will be populated with the graphPathString function which is called by PlaceSearch().fetchPlaces.
+    
+    // Places available fields documentation at https://developers.facebook.com/docs/places/fields
     var parameters: [String: Any]? = ["fields": "name, about, id, location, context, engagement, checkins, picture, cover"]
+    
+    // Logged in and Not-Logged-In access documented at https://developers.facebook.com/docs/places/access-tokens
     var accessToken = AccessToken.current
     var httpMethod: GraphRequestHTTPMethod = .GET
     var apiVersion: GraphAPIVersion = .defaultVersion
@@ -86,19 +88,21 @@ private struct PlaceSearchResponse: GraphResponseProtocol {
     
     init(rawResponse: Any?) {
         // Decode JSON from rawResponse into other properties here.
+        /* Sample API response for Angela Yu searching at Builing 20:
+         use JSON viewer to collapse and expand tree here https://codebeautify.org/jsonviewer/cb147a70
+         */
         let json = JSON(rawResponse!)
         // print(json)
         places = []
         for spot in json["data"].arrayValue {
             let placeID = spot["id"].intValue
             let placeName = spot["name"].stringValue
-            let placeLat = spot["location"]["latitude"].double
-            let placeLon = spot["location"]["longitude"].double
-            let coordinates = CLLocationCoordinate2D(latitude: placeLat!, longitude: placeLon!)
-            let placeAddr = spot["location"]["street"].stringValue
+            let placeLat = spot["location"]["latitude"].doubleValue
+            let placeLon = spot["location"]["longitude"].doubleValue
             
-            let thisPlace = Place(id: Int64(placeID), name: placeName, location: coordinates, address: placeAddr)
+            let thisPlace = Place(id: Int64(placeID), name: placeName, latitude: placeLat, longitude: placeLon)
             
+            thisPlace.address = spot["address"].stringValue
             thisPlace.about = spot["about"].stringValue
             thisPlace.picture = spot["picture"]["data"]["url"].stringValue
             thisPlace.context = spot["context"]["friends_who_like"]["summary"]["social_sentence"].stringValue

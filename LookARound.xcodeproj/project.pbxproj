@@ -146,7 +146,6 @@
 				773B89811F8CA3F90010191C /* PlaceDoNotUse.swift */,
 				777763BB1F8E11D00018D621 /* LABrand.swift */,
 				77D0A1591F9098A600597CAC /* Place.swift */,
-				746973871F92DDFE0067D2B9 /* FilterUtilities.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -166,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				777898E51F903C06004EAE3D /* GraphRequests.swift */,
+				746973871F92DDFE0067D2B9 /* FilterUtilities.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
