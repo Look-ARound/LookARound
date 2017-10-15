@@ -18,6 +18,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
     @IBOutlet weak var placeImageView: UIImageView!
     @IBOutlet weak var placeContextLabel: UILabel!
     
+    var places: [Place]?
     var completionHandler: (([Place]) -> Void)?
     
     override func viewDidLoad() {
@@ -76,12 +77,27 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
                 self.placeImageView.setImageWith(url!)
                 self.placeContextLabel.text = places[1].context
                 self.placeContextLabel.sizeToFit()
+                self.places = response.places
+                self.performSegue(withIdentifier: "results", sender: self)
                 // print("Custom Graph Request Succeeded: \(response)")
                 self.completionHandler?(places)
             }
             //self.dismiss(animated: true, completion: nil )
         }) { (error: Error) in
             print("Custom Graph Request Failed: \(error)")
+        }
+    }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "results" {
+            let destinationVC = segue.destination as! SearchResultsViewController
+            
+            if let places = self.places {
+                print("attaching places")
+                destinationVC.places = places
+                destinationVC.viewDidLoad()
+            }
         }
     }
 }

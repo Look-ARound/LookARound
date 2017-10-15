@@ -32,6 +32,7 @@ class Place: NSObject {
     var context: String?
     var checkins: Int?
     var likes: Int?
+    var engagement: String?
     var rating: Int?
 
     init(id: Int64, name: String, location: CLLocationCoordinate2D, address: String) {
