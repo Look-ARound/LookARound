@@ -9,8 +9,16 @@
 /* Begin PBXBuildFile section */
 		09A6B8D38A0198D6D8F57523 /* Pods_LookARound.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29FB2778497F0154DB2D1406 /* Pods_LookARound.framework */; };
 		49412ED01F8E7E5400F8830C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49412ECF1F8E79FD00F8830C /* GoogleService-Info.plist */; };
+
 		4979A2841F926B9F007071E2 /* HCSStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4979A2831F926B9F007071E2 /* HCSStarRatingView.m */; };
 		4979A2871F93F97D007071E2 /* PlaceDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4979A2861F93F97D007071E2 /* PlaceDetailTableViewController.swift */; };
+
+		70C803471F92DDAA007048F3 /* MapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C803461F92DDAA007048F3 /* MapView.xib */; };
+		70C803491F92DE98007048F3 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C803481F92DE98007048F3 /* MapView.swift */; };
+		7469736E1F9297D40067D2B9 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7469736D1F9297D40067D2B9 /* FilterViewController.swift */; };
+		746973701F929C750067D2B9 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7469736F1F929C750067D2B9 /* FilterCell.swift */; };
+		746973881F92DDFE0067D2B9 /* FilterUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746973871F92DDFE0067D2B9 /* FilterUtilities.swift */; };
+
 		7734356B1F8C9C1500375221 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7734356A1F8C9C1500375221 /* AppDelegate.swift */; };
 		7734356D1F8C9C1500375221 /* Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7734356C1F8C9C1500375221 /* Scene.sks */; };
 		7734356F1F8C9C1500375221 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7734356E1F8C9C1500375221 /* Scene.swift */; };
@@ -22,6 +30,8 @@
 		7734358B1F8C9CEF00375221 /* Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7734358A1F8C9CEF00375221 /* Detail.storyboard */; };
 		773B89801F8CA1680010191C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773B897F1F8CA1680010191C /* User.swift */; };
 		773B89821F8CA3F90010191C /* PlaceDoNotUse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773B89811F8CA3F90010191C /* PlaceDoNotUse.swift */; };
+		774B92701F91C9AD00B8A74A /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774B926F1F91C9AC00B8A74A /* SearchResultsViewController.swift */; };
+		774B92721F91CDDF00B8A74A /* SearchResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774B92711F91CDDF00B8A74A /* SearchResultsCell.swift */; };
 		774FF1DD1F8F8B3F00E632A4 /* ARoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774FF1DC1F8F8B3F00E632A4 /* ARoundViewController.swift */; };
 		777763BC1F8E11D00018D621 /* LABrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777763BB1F8E11D00018D621 /* LABrand.swift */; };
 		777763BE1F8E1FE30018D621 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 777763BD1F8E1FE30018D621 /* Annotation.swift */; };
@@ -41,6 +51,11 @@
 		4979A2861F93F97D007071E2 /* PlaceDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailTableViewController.swift; sourceTree = "<group>"; };
 		6AEEA033A3A22E4DD0EC7964 /* Pods-LookARound.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LookARound.release.xcconfig"; path = "Pods/Target Support Files/Pods-LookARound/Pods-LookARound.release.xcconfig"; sourceTree = "<group>"; };
 		702FB57F1F91B8C000D430FE /* ARCL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ARCL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		70C803461F92DDAA007048F3 /* MapView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapView.xib; sourceTree = "<group>"; };
+		70C803481F92DE98007048F3 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		7469736D1F9297D40067D2B9 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		7469736F1F929C750067D2B9 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
+		746973871F92DDFE0067D2B9 /* FilterUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterUtilities.swift; sourceTree = "<group>"; };
 		773435671F8C9C1500375221 /* LookARound.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LookARound.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7734356A1F8C9C1500375221 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7734356C1F8C9C1500375221 /* Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene.sks; sourceTree = "<group>"; };
@@ -54,6 +69,8 @@
 		7734358A1F8C9CEF00375221 /* Detail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Detail.storyboard; sourceTree = "<group>"; };
 		773B897F1F8CA1680010191C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		773B89811F8CA3F90010191C /* PlaceDoNotUse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDoNotUse.swift; sourceTree = "<group>"; };
+		774B926F1F91C9AC00B8A74A /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
+		774B92711F91CDDF00B8A74A /* SearchResultsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsCell.swift; sourceTree = "<group>"; };
 		774FF1DC1F8F8B3F00E632A4 /* ARoundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARoundViewController.swift; sourceTree = "<group>"; };
 		777763BB1F8E11D00018D621 /* LABrand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LABrand.swift; sourceTree = "<group>"; };
 		777763BD1F8E1FE30018D621 /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
@@ -180,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				777898E51F903C06004EAE3D /* GraphRequests.swift */,
+				746973871F92DDFE0067D2B9 /* FilterUtilities.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -187,6 +205,10 @@
 		77B97B5A1F8F722F00F7C24D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				774B92711F91CDDF00B8A74A /* SearchResultsCell.swift */,
+				7469736F1F929C750067D2B9 /* FilterCell.swift */,
+				70C803461F92DDAA007048F3 /* MapView.xib */,
+				70C803481F92DE98007048F3 /* MapView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -196,7 +218,9 @@
 			children = (
 				77ECD44A1F8F752F0056ED2C /* LoginViewController.swift */,
 				4979A2861F93F97D007071E2 /* PlaceDetailTableViewController.swift */,
+				774B926F1F91C9AC00B8A74A /* SearchResultsViewController.swift */,
 				774FF1DC1F8F8B3F00E632A4 /* ARoundViewController.swift */,
+				7469736D1F9297D40067D2B9 /* FilterViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -264,6 +288,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70C803471F92DDAA007048F3 /* MapView.xib in Resources */,
 				7734356D1F8C9C1500375221 /* Scene.sks in Resources */,
 				49412ED01F8E7E5400F8830C /* GoogleService-Info.plist in Resources */,
 				773435791F8C9C1500375221 /* LaunchScreen.storyboard in Resources */,
@@ -355,16 +380,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				4979A2871F93F97D007071E2 /* PlaceDetailTableViewController.swift in Sources */,
+				774B92721F91CDDF00B8A74A /* SearchResultsCell.swift in Sources */,
 				777898E61F903C06004EAE3D /* GraphRequests.swift in Sources */,
+				774B92701F91C9AD00B8A74A /* SearchResultsViewController.swift in Sources */,
 				777763BC1F8E11D00018D621 /* LABrand.swift in Sources */,
 				773B89801F8CA1680010191C /* User.swift in Sources */,
 				77D0A15A1F9098A600597CAC /* Place.swift in Sources */,
 				7734356F1F8C9C1500375221 /* Scene.swift in Sources */,
 				774FF1DD1F8F8B3F00E632A4 /* ARoundViewController.swift in Sources */,
 				7734356B1F8C9C1500375221 /* AppDelegate.swift in Sources */,
+				70C803491F92DE98007048F3 /* MapView.swift in Sources */,
+				746973701F929C750067D2B9 /* FilterCell.swift in Sources */,
+				7469736E1F9297D40067D2B9 /* FilterViewController.swift in Sources */,
 				77AA66271F8EF0A500F477DB /* AnnotationView.swift in Sources */,
 				777763BE1F8E1FE30018D621 /* Annotation.swift in Sources */,
 				773B89821F8CA3F90010191C /* PlaceDoNotUse.swift in Sources */,
+				746973881F92DDFE0067D2B9 /* FilterUtilities.swift in Sources */,
 				77ECD44B1F8F752F0056ED2C /* LoginViewController.swift in Sources */,
 				4979A2841F926B9F007071E2 /* HCSStarRatingView.m in Sources */,
 				77AA66291F8EF61900F477DB /* MapItem.swift in Sources */,

@@ -20,11 +20,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         // FirebaseApp.configure()
-        let storyboard = UIStoryboard(name: "Detail", bundle: nil)
-        let loginViewController = storyboard.instantiateViewController(withIdentifier: "detailViewController")
-        
-        window?.rootViewController = loginViewController
-        window?.makeKeyAndVisible()
+       let storyboard = UIStoryboard(name: "Login", bundle: nil)
+//        let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+
+//        let storyboard = UIStoryboard(name: "Filter", bundle: nil)
+//        let filterVC = storyboard.instantiateViewController(withIdentifier: "FilterNavigationControllerID")
+//
+//        window?.rootViewController = filterVC
+//        window?.makeKeyAndVisible()
         
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
