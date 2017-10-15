@@ -39,10 +39,10 @@ struct PlaceSearch {
         case .checkins:
             let sortedPlaces = places.sorted(by: {
                 guard let firstCheckins = $0.checkins else {
-                    return false
+                    return true
                 }
                 guard let secondCheckins = $1.checkins else {
-                    return false
+                    return true
                 }
                 return firstCheckins > secondCheckins
             })
