@@ -46,7 +46,7 @@ internal class PlaceDetailTableViewController: UITableViewController {
     
     private func setupMapView() {
         let annotation = MKPointAnnotation()
-        annotation.coordinate = place.location
+        annotation.coordinate = CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
         placeMapView.addAnnotation(annotation)
         placeMapView.showAnnotations([annotation], animated: true)
     }
