@@ -27,11 +27,29 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource {
         
         print("first place is \(places[0].name)")
         tableView.reloadData()
+        
+        let likeSortButton = UIBarButtonItem(title: "Visits", style: .plain, target: self, action: #selector(sortByCheckins))
+        let friendsSortButton = UIBarButtonItem(title: "Friends", style: .plain, target: self, action: #selector(sortByFriends))
+        navigationItem.rightBarButtonItems = [likeSortButton, friendsSortButton]
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc func sortByCheckins() {
+        places = PlaceSearch().sortPlaces(places: places, by: .checkins)
+        tableView.reloadData()
+        let indexPath = NSIndexPath(row: 0, section: 0) as IndexPath
+        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+    }
+    
+    @objc func sortByFriends() {
+        places = PlaceSearch().sortPlaces(places: places, by: .friends)
+        tableView.reloadData()
+        let indexPath = NSIndexPath(row: 0, section: 0) as IndexPath
+        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
 
 }
