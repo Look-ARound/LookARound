@@ -85,12 +85,15 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
             dismiss(animated: true, completion: nil)
         } else {
             // Push login screen
-            let storyboard = UIStoryboard(name: "Login", bundle: nil)
-            let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-            
-            self.navigationItem.leftBarButtonItem = nil
-            self.navigationController?.pushViewController(loginViewController, animated: true)
+            showLoginScreen()
         }
+    }
+    
+    func showLoginScreen() {
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        
+        self.navigationController?.pushViewController(loginViewController, animated: true)
     }
     
     @IBAction func onCancel(_ sender: Any) {

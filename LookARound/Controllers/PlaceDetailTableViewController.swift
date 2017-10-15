@@ -30,6 +30,12 @@ internal class PlaceDetailTableViewController: UITableViewController {
         setupViews()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.isHidden = false        
+    }
+    
     // MARK: - Helpers
     
     private func setupViews() {

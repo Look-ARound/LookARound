@@ -14,7 +14,7 @@ import ARCL
 import CoreLocation
 
 @available(iOS 11.0, *)
-class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterViewControllerDelegate {
+class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterViewControllerDelegate, ARMapViewDelegate {
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var mapButton: UIButton!
     @IBOutlet weak var mapView: MapView!
@@ -35,6 +35,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         
         // Set up default filter categories for inital launch
         filterCategories = [FilterCategory.Food_Beverage, FilterCategory.Fitness_Recreation]
+        // TODO: populate the AR and map view with inital set of pins returned by a query with the above categories
         
         initMap()
     }
@@ -51,6 +52,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     func initMap()
     {
         mapView.alpha = 0.9
+        mapView.delegate = self
         // Move mapView offscreen (below view)
         self.view.layoutIfNeeded()
         mapTop.constant = mapView.frame.height
@@ -61,6 +63,8 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         super.viewWillAppear(animated)
 
         sceneLocationView.run()
+        
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -142,10 +146,24 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
             if let places = places {
                 self?.addPlaces(places: places)
                 self?.mapView.addPlaces(places: places)
+                // TODO: Remove previous pins and add these new pins
             }
         }) { (error: Error) in
             print("Error fetching places with updated filters. Error: \(error)")
         }
+    }
+    
+    // MARK: - ARMapViewDelegate
+    func mapView(mapView: MapView, didSelectPlace place: Place) {
+        showDetailVC(forPlace: place)
+    }
+    
+    func showDetailVC(forPlace place: Place) {
+        let storyboard = UIStoryboard(name: "Detail", bundle: nil)
+        let detailViewController = storyboard.instantiateViewController(withIdentifier: "detailViewController") as! PlaceDetailTableViewController
+        detailViewController.place = place
+        
+        self.navigationController?.pushViewController(detailViewController, animated: true)
     }
     
     // MARK: - SceneLocationViewDelegate
