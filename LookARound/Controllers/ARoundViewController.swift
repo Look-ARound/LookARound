@@ -15,7 +15,6 @@ import CoreLocation
 
 @available(iOS 11.0, *)
 class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterViewControllerDelegate {
-    @IBOutlet weak var friendsButton: UIButton!
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var mapButton: UIButton!
     @IBOutlet weak var mapView: MapView!
@@ -32,7 +31,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         addARScene()
 
         // Set up the UI elements as per the app theme
-        prepButtonsWithARTheme(buttons: [filterButton, mapButton, friendsButton])
+        prepButtonsWithARTheme(buttons: [filterButton, mapButton])
         
         // Set up default filter categories for inital launch
         filterCategories = [FilterCategory.Food_Beverage, FilterCategory.Fitness_Recreation]
@@ -43,7 +42,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     func prepButtonsWithARTheme(buttons : [UIButton]) {
         for button in buttons {
             button.setTitleColor(UIColor.LABrand.primary, for: .normal)
-            button.layer.cornerRadius = friendsButton.frame.size.height * 0.5
+            button.layer.cornerRadius = button.frame.size.height * 0.5
             button.clipsToBounds = true
             button.alpha = 0.6
         }
@@ -124,19 +123,6 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseOut], animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
-    }
-    
-    @IBAction func onFriendsButton(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Login", bundle: nil)
-        let loginNavigationController = storyboard.instantiateViewController(withIdentifier: "LoginNavigationController") as! UINavigationController
-        
-        let loginViewController = loginNavigationController.topViewController as! LoginViewController
-        loginViewController.completionHandler = { places in
-            print( "* places.count=\(places.count)")
-            self.addPlaces( places: places )
-        }
-        
-        present(loginNavigationController, animated: true, completion: nil)
     }
     
     @IBAction func onFilterButton(_ sender: Any) {
