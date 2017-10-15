@@ -47,6 +47,28 @@
                                             <outlet property="filterNameLabel" destination="e4g-Hd-vDh" id="e5j-Ql-q8u"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="LoginCell" rowHeight="84" id="vod-uw-lrV" customClass="LoginCell" customModule="LookARound" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="113" width="375" height="84"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vod-uw-lrV" id="Eaf-Wd-8vD">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="83.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login to Facebook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n4P-s4-Zho">
+                                                    <rect key="frame" x="16" y="20" width="164" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="n4P-s4-Zho" firstAttribute="top" secondItem="Eaf-Wd-8vD" secondAttribute="top" constant="20" id="1Te-Zq-ezH"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="n4P-s4-Zho" secondAttribute="bottom" constant="20" id="GQ0-RL-UBY"/>
+                                                <constraint firstItem="n4P-s4-Zho" firstAttribute="leading" secondItem="Eaf-Wd-8vD" secondAttribute="leading" constant="16" id="W8v-72-fnS"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="n4P-s4-Zho" secondAttribute="trailing" constant="16" id="cef-rL-gMa"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
