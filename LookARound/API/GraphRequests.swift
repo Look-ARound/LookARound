@@ -11,6 +11,12 @@ import FacebookCore
 import CoreLocation
 import SwiftyJSON
 
+enum sortMethod: Int {
+    case checkins = 0
+    case friends = 1
+}
+
+
 struct PlaceSearch {
     func fetchPlaces(with categories:[FilterCategory], success: @escaping ([Place]?)->(), failure: @escaping (Error)->()) -> Void {
         var request = PlaceSearchRequest()
@@ -26,6 +32,33 @@ struct PlaceSearch {
             }
         }
         searchConnection.start()
+    }
+    
+    func sortPlaces(places: [Place], by method: sortMethod) -> [Place] {
+        switch method {
+        case .checkins:
+            let sortedPlaces = places.sorted(by: {
+                guard let firstCheckins = $0.checkins else {
+                    return true
+                }
+                guard let secondCheckins = $1.checkins else {
+                    return true
+                }
+                return firstCheckins > secondCheckins
+            })
+            return sortedPlaces
+        case .friends:
+            let sortedPlaces = places.sorted(by: {
+                guard let firstFriends = $0.contextCount else {
+                    return false
+                }
+                guard let secondFriends = $1.contextCount else {
+                    return false
+                }
+                return firstFriends > secondFriends
+            })
+            return sortedPlaces
+        }
     }
 }
 
@@ -106,7 +139,10 @@ private struct PlaceSearchResponse: GraphResponseProtocol {
             thisPlace.about = spot["about"].stringValue
             thisPlace.picture = spot["picture"]["data"]["url"].stringValue
             thisPlace.context = spot["context"]["friends_who_like"]["summary"]["social_sentence"].stringValue
+            thisPlace.contextCount = spot["context"]["friends_who_like"]["summary"]["total_count"].intValue
             thisPlace.checkins = spot["checkins"].intValue
+            thisPlace.engagement = spot["engagement"]["social_sentence"].stringValue
+            thisPlace.likes = spot["engagement"]["count"].intValue
             places.append(thisPlace)
         }
     }

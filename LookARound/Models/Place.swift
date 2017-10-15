@@ -30,7 +30,7 @@ class Place: NSObject {
     var about: String?
     var categories: [Categories]?
     var picture: String? = ""
-    var context_count: Int?
+    var contextCount: Int?
     var context: String?
     var checkins: Int?
     var likes: Int?
