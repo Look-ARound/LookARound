@@ -28,8 +28,12 @@ class AnnotationView: MKAnnotationView {
     var annotationLA: Annotation?   // has coordinate, title, subtitle, address, and rating
     
     init(annotation: Annotation?, reuseIdentifer: String?) {
-        annotationLA = annotation
-        super.init(annotation: annotation, reuseIdentifier: reuseIdentifer)
+        if let annotation = annotation {
+            annotationLA = annotation
+            super.init(annotation: annotation, reuseIdentifier: reuseIdentifer)
+        } else {
+            super.init()
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {

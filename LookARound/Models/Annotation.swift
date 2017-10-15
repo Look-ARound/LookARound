@@ -13,17 +13,17 @@ class Annotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     var title: String?
     var about: String?
-    var address: String?
-    var rating: Int?
 
     
-    init(place: Place?) {
-        if let place = place {
-            self.title = place.name
-            self.about = place.about
-            self.coordinate = CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
+    init(placemark: Placemark?) {
+        if let placemark = placemark {
+            self.title = placemark.place?.name
+            self.coordinate = placemark.coordinate
+            self.about = placemark.place?.about
         } else {
             self.coordinate = CLLocationCoordinate2D(latitude: 37.4816734, longitude: -122.1556204)
+            self.title = ""
+            self.about = ""
         }
         
         super.init()
