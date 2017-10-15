@@ -24,7 +24,7 @@
 		773435891F8C9CDF00375221 /* Filter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 773435881F8C9CDF00375221 /* Filter.storyboard */; };
 		7734358B1F8C9CEF00375221 /* Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7734358A1F8C9CEF00375221 /* Detail.storyboard */; };
 		773B89801F8CA1680010191C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773B897F1F8CA1680010191C /* User.swift */; };
-		773B89821F8CA3F90010191C /* PlaceDoNotUse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773B89811F8CA3F90010191C /* PlaceDoNotUse.swift */; };
+		773B89821F8CA3F90010191C /* Placemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773B89811F8CA3F90010191C /* Placemark.swift */; };
 		774B92701F91C9AD00B8A74A /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774B926F1F91C9AC00B8A74A /* SearchResultsViewController.swift */; };
 		774B92721F91CDDF00B8A74A /* SearchResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774B92711F91CDDF00B8A74A /* SearchResultsCell.swift */; };
 		774FF1DD1F8F8B3F00E632A4 /* ARoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774FF1DC1F8F8B3F00E632A4 /* ARoundViewController.swift */; };
@@ -59,7 +59,7 @@
 		773435881F8C9CDF00375221 /* Filter.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Filter.storyboard; sourceTree = "<group>"; };
 		7734358A1F8C9CEF00375221 /* Detail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Detail.storyboard; sourceTree = "<group>"; };
 		773B897F1F8CA1680010191C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		773B89811F8CA3F90010191C /* PlaceDoNotUse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDoNotUse.swift; sourceTree = "<group>"; };
+		773B89811F8CA3F90010191C /* Placemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placemark.swift; sourceTree = "<group>"; };
 		774B926F1F91C9AC00B8A74A /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		774B92711F91CDDF00B8A74A /* SearchResultsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsCell.swift; sourceTree = "<group>"; };
 		774FF1DC1F8F8B3F00E632A4 /* ARoundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARoundViewController.swift; sourceTree = "<group>"; };
@@ -147,7 +147,7 @@
 				77AA66281F8EF61900F477DB /* MapItem.swift */,
 				773B897F1F8CA1680010191C /* User.swift */,
 				777763BD1F8E1FE30018D621 /* Annotation.swift */,
-				773B89811F8CA3F90010191C /* PlaceDoNotUse.swift */,
+				773B89811F8CA3F90010191C /* Placemark.swift */,
 				777763BB1F8E11D00018D621 /* LABrand.swift */,
 				77D0A1591F9098A600597CAC /* Place.swift */,
 			);
@@ -363,7 +363,7 @@
 				7469736E1F9297D40067D2B9 /* FilterViewController.swift in Sources */,
 				77AA66271F8EF0A500F477DB /* AnnotationView.swift in Sources */,
 				777763BE1F8E1FE30018D621 /* Annotation.swift in Sources */,
-				773B89821F8CA3F90010191C /* PlaceDoNotUse.swift in Sources */,
+				773B89821F8CA3F90010191C /* Placemark.swift in Sources */,
 				746973881F92DDFE0067D2B9 /* FilterUtilities.swift in Sources */,
 				77ECD44B1F8F752F0056ED2C /* LoginViewController.swift in Sources */,
 				77AA66291F8EF61900F477DB /* MapItem.swift in Sources */,

@@ -12,11 +12,11 @@ import FacebookCore
 import AFNetworking
 
 class LoginViewController: UIViewController, LoginButtonDelegate {
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var placeLabel: UILabel!
-    @IBOutlet weak var placeImageView: UIImageView!
-    @IBOutlet weak var placeContextLabel: UILabel!
+    @IBOutlet private var nameLabel: UILabel!
+    @IBOutlet private var profileImageView: UIImageView!
+    @IBOutlet private var placeLabel: UILabel!
+    @IBOutlet private var placeImageView: UIImageView!
+    @IBOutlet private var placeContextLabel: UILabel!
     
     var places: [Place]?
     var completionHandler: (([Place]) -> Void)?
