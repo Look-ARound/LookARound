@@ -14,18 +14,23 @@ import ARCL
 import CoreLocation
 
 @available(iOS 11.0, *)
-class ARoundViewController: UIViewController, SceneLocationViewDelegate {
+class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterViewControllerDelegate {
     @IBOutlet weak var friendsButton: UIButton!
     @IBOutlet weak var filterButton: UIButton!
     
     let sceneLocationView = SceneLocationView()
+    var filterCategories : [FilterCategory]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addARScene()
         
+        // Set up the UI elements as per the app theme
         prepButtonsWithARTheme(buttons: [filterButton, friendsButton])
+        
+        // Set up default filter categories for inital launch
+        filterCategories = [FilterCategory.Food_Beverage, FilterCategory.Fitness_Recreation]
     }
     
     func prepButtonsWithARTheme(buttons : [UIButton]) {
@@ -107,9 +112,25 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate {
     
     @IBAction func onFilterButton(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Filter", bundle: nil)
-        let filterVC = storyboard.instantiateViewController(withIdentifier: "FilterNavigationControllerID")
+        let filterNVC = storyboard.instantiateViewController(withIdentifier: "FilterNavigationControllerID") as! UINavigationController
         
-        present(filterVC, animated: true, completion: nil)
+        let filterVC = filterNVC.topViewController as! FilterViewController
+        filterVC.delegate = self
+        
+        present(filterNVC, animated: true, completion: nil)
+    }
+    
+    // MARK: - FilterViewControllerDelegate
+    func filterViewController(_filterViewController: FilterViewController, didSelectCategories categories: [FilterCategory]) {
+        filterCategories = categories
+        PlaceSearch().fetchPlaces(with: filterCategories, success: { [weak self] (places: [Place]?) in
+            if let places = places {
+                self?.addPlaces(places: places)
+                // TODO John: How do you reload the pins?
+            }
+        }) { (error: Error) in
+            print("Error fetching places with updated filters. Error: \(error)")
+        }
     }
     
     // MARK: - SceneLocationViewDelegate
