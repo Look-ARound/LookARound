@@ -14,7 +14,7 @@ import ARCL
 import CoreLocation
 
 @available(iOS 11.0, *)
-class ARoundViewController: UIViewController, SceneLocationViewDelegate {
+class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterViewControllerDelegate {
     @IBOutlet weak var friendsButton: UIButton!
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var mapButton: UIButton!
@@ -24,14 +24,19 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate {
     @IBOutlet weak var mapTop: NSLayoutConstraint!
     
     let sceneLocationView = SceneLocationView()
+    var filterCategories : [FilterCategory]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addARScene()
-        
-        prepButtonsWithARTheme(buttons: [filterButton, mapButton, friendsButton])
 
+        // Set up the UI elements as per the app theme
+        prepButtonsWithARTheme(buttons: [filterButton, mapButton, friendsButton])
+        
+        // Set up default filter categories for inital launch
+        filterCategories = [FilterCategory.Food_Beverage, FilterCategory.Fitness_Recreation]
+        
         initMap()
     }
     
@@ -96,10 +101,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate {
             let name = place.name
             let pinName = "pin_home"
             
-            //let pinCoordinate = CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!)
-            let pinCoordinate = place.location
-            
-            let pinLocation = CLLocation(coordinate: pinCoordinate, altitude: 236)
+            let pinLocation = CLLocation(latitude: place.latitude, longitude: place.longitude)
             
             let origImage = UIImage(named: pinName)!
             let pinImage =  origImage.addText(name as! NSString, atPoint: CGPoint(x: 15, y: 0), textColor:nil, textFont:UIFont.systemFont(ofSize: 26))
@@ -126,19 +128,38 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate {
     
     @IBAction func onFriendsButton(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
-        let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        let loginNavigationController = storyboard.instantiateViewController(withIdentifier: "LoginNavigationController") as! UINavigationController
+        
+        let loginViewController = loginNavigationController.topViewController as! LoginViewController
         loginViewController.completionHandler = { places in
             print( "* places.count=\(places.count)")
             self.addPlaces( places: places )
         }
-        present(loginViewController, animated: true, completion: nil)
+        
+        present(loginNavigationController, animated: true, completion: nil)
     }
     
     @IBAction func onFilterButton(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Filter", bundle: nil)
-        let filterVC = storyboard.instantiateViewController(withIdentifier: "FilterNavigationControllerID")
+        let filterNVC = storyboard.instantiateViewController(withIdentifier: "FilterNavigationControllerID") as! UINavigationController
         
-        present(filterVC, animated: true, completion: nil)
+        let filterVC = filterNVC.topViewController as! FilterViewController
+        filterVC.delegate = self
+        
+        present(filterNVC, animated: true, completion: nil)
+    }
+    
+    // MARK: - FilterViewControllerDelegate
+    func filterViewController(_filterViewController: FilterViewController, didSelectCategories categories: [FilterCategory]) {
+        filterCategories = categories
+        PlaceSearch().fetchPlaces(with: filterCategories, success: { [weak self] (places: [Place]?) in
+            if let places = places {
+                self?.addPlaces(places: places)
+                // TODO John: How do you reload the pins?
+            }
+        }) { (error: Error) in
+            print("Error fetching places with updated filters. Error: \(error)")
+        }
     }
     
     // MARK: - SceneLocationViewDelegate

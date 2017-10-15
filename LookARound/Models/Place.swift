@@ -23,8 +23,10 @@ enum Categories: String {
 class Place: NSObject {
     var id: Int64
     var name: String
-    var location: CLLocationCoordinate2D
-    var address: String
+    // var location: CLLocationCoordinate2D // Deprecated
+    var latitude: Double
+    var longitude: Double
+    var address: String?
     var about: String?
     var categories: [Categories]?
     var picture: String? = ""
@@ -32,13 +34,14 @@ class Place: NSObject {
     var context: String?
     var checkins: Int?
     var likes: Int?
+    var engagement: String?
     var rating: Int?
 
-    init(id: Int64, name: String, location: CLLocationCoordinate2D, address: String) {
+    init(id: Int64, name: String, latitude: Double, longitude: Double) {
         self.id = id
         self.name = name
-        self.location = location
-        self.address = address
+        self.latitude = latitude
+        self.longitude = longitude
     }
 
 }

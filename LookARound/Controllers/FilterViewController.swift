@@ -8,48 +8,14 @@
 
 import UIKit
 
-public enum FilterCategory : Int {
-    case Arts_Entertainment = 0
-    case Education
-    case Fitness_Recreation
-    case Food_Beverage
-    case Hotel_Loding
-    case Medical_Health
-    case Shopping_Retail
-    case Travel_Transportation
-    case Categories_Total_Count
-}
-
-public func FilterCategoryString(category : FilterCategory) -> String {
-    var categoryStr : String = ""
-    
-    switch category {
-    case .Arts_Entertainment:
-        categoryStr = "Arts & Entertainment"
-    case .Education:
-        categoryStr = "Education"
-    case .Fitness_Recreation:
-        categoryStr = "Fitness & Recreation"
-    case .Food_Beverage:
-        categoryStr = "Food & Beverage"
-    case .Hotel_Loding:
-        categoryStr = "Hotel & Lodging"
-    case .Medical_Health:
-        categoryStr = "Health"
-    case .Shopping_Retail:
-        categoryStr = "Retail"
-    case .Travel_Transportation:
-        categoryStr = "Travel & Transportation"
-    case .Categories_Total_Count:
-        break
-    }
-    
-    return categoryStr
+protocol FilterViewControllerDelegate : NSObjectProtocol {
+    func filterViewController(_filterViewController: FilterViewController, didSelectCategories categories: [FilterCategory])
 }
 
 class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var filterTableView: UITableView!
+    weak var delegate : FilterViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,13 +36,19 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FilterCell", for: indexPath) as! FilterCell
-        cell.filterNameLabel.text = FilterCategoryString(category: FilterCategory(rawValue: indexPath.row)!)
+        cell.filterNameLabel.text = FilterCategoryDisplayString(category: FilterCategory(rawValue: indexPath.row)!)
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        let category = FilterCategory(rawValue: indexPath.row)!
+        self.delegate?.filterViewController(_filterViewController: self,
+                                            didSelectCategories: [category])
+        
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func onCancel(_ sender: Any) {
