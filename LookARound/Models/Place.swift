@@ -24,7 +24,6 @@ enum Categories: String {
 internal class Place: NSObject {
     var id: Int64
     var name: String
-    // var location: CLLocationCoordinate2D // Deprecated
     var latitude: Double
     var longitude: Double
     var address: String?
@@ -37,6 +36,12 @@ internal class Place: NSObject {
     var likes: Int?
     var engagement: String?
     var rating: Int?
+    
+    var location: CLLocationCoordinate2D {
+        get {
+            return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        }
+    }
     
     init?(json: JSON) {
         // TODO Guard against json not having required values
@@ -52,5 +57,13 @@ internal class Place: NSObject {
         checkins = json["checkins"].intValue
         engagement = json["engagement"]["social_sentence"].stringValue
         likes = json["engagement"]["count"].intValue
+    }
+    
+    // MANUAL INIT for debugging and testing
+    init(id: Int64, name: String, latitude: Double, longitude: Double) {
+        self.id = id
+        self.name = name
+        self.latitude = latitude
+        self.longitude = longitude
     }
 }

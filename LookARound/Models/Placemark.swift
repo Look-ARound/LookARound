@@ -28,12 +28,10 @@ class Placemark: MKPlacemark {
      */
     var place: Place?
     
-    // USAGE: let newPlace = Place(idType: .fb, id: 895790720471601, coordinate: (67.39438425015, -122.348495), dictionary: [:])
     init(place: Place) {
-        let coordinate = CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
+        let coordinate = place.location
         self.place = place
         super.init(coordinate: coordinate)
-
     }
     
     required init?(coder aDecoder: NSCoder) {
