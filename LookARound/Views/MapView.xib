@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MapView" customModule="LookARound" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="iN0-l3-epB" id="BMt-Xz-Bsx"/>
+                <outlet property="mapView" destination="zSL-vv-552" id="56X-iN-0DZ"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="404"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yxc-ef-SPk">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="404"/>
+                    <subviews>
+                        <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="zSL-vv-552">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="404"/>
+                        </mapView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="zSL-vv-552" secondAttribute="trailing" id="69n-um-ge0"/>
+                        <constraint firstItem="zSL-vv-552" firstAttribute="top" secondItem="yxc-ef-SPk" secondAttribute="top" id="OVF-sv-cbf"/>
+                        <constraint firstAttribute="bottom" secondItem="zSL-vv-552" secondAttribute="bottom" id="UUF-Eu-7Ax"/>
+                        <constraint firstItem="zSL-vv-552" firstAttribute="leading" secondItem="yxc-ef-SPk" secondAttribute="leading" id="rnh-0J-ms3"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="yxc-ef-SPk" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="9Ah-GY-FN4"/>
+                <constraint firstItem="yxc-ef-SPk" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="FVD-xw-hvP"/>
+                <constraint firstItem="yxc-ef-SPk" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="fRK-YW-dbZ"/>
+                <constraint firstItem="yxc-ef-SPk" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="v0o-De-Hve"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="-286" y="-89"/>
+        </view>
+    </objects>
+</document>

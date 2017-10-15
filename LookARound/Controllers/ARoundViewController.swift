@@ -17,6 +17,11 @@ import CoreLocation
 class ARoundViewController: UIViewController, SceneLocationViewDelegate {
     @IBOutlet weak var friendsButton: UIButton!
     @IBOutlet weak var filterButton: UIButton!
+    @IBOutlet weak var mapButton: UIButton!
+    @IBOutlet weak var mapView: MapView!
+    @IBOutlet var contentView: UIView!
+    @IBOutlet weak var mapBottom: NSLayoutConstraint!
+    @IBOutlet weak var mapTop: NSLayoutConstraint!
     
     let sceneLocationView = SceneLocationView()
     
@@ -25,7 +30,9 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate {
         
         addARScene()
         
-        prepButtonsWithARTheme(buttons: [filterButton, friendsButton])
+        prepButtonsWithARTheme(buttons: [filterButton, mapButton, friendsButton])
+
+        initMap()
     }
     
     func prepButtonsWithARTheme(buttons : [UIButton]) {
@@ -33,7 +40,17 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate {
             button.setTitleColor(UIColor.LABrand.primary, for: .normal)
             button.layer.cornerRadius = friendsButton.frame.size.height * 0.5
             button.clipsToBounds = true
+            button.alpha = 0.6
         }
+    }
+    
+    func initMap()
+    {
+        mapView.alpha = 0.9
+        // Move mapView offscreen (below view)
+        self.view.layoutIfNeeded()
+        mapTop.constant = mapView.frame.height
+        mapBottom.constant = mapView.frame.height
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -93,6 +110,18 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate {
             
             sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: pinLocationNode)
         }
+    }
+    
+    @IBAction func onMapButton(_ sender: Any) {
+        
+        // Slide map up/down from bottom
+        let distance = self.mapBottom?.constant == 0 ? mapView.frame.height : 0
+        self.mapBottom?.constant = distance
+        self.mapTop?.constant = distance
+        
+        UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseOut], animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
     }
     
     @IBAction func onFriendsButton(_ sender: Any) {
