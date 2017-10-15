@@ -7,15 +7,15 @@
 //
 
 public enum FilterCategory : Int {
-    case Arts_Entertainment = 0
-    case Education
-    case Fitness_Recreation
     case Food_Beverage
+    case Fitness_Recreation
+    case Arts_Entertainment
+    case Categories_Total_Count // We use this enum's position to modify the list of filters in the Filters view.
+    case Education
     case Hotel_Loding
     case Medical_Health
     case Shopping_Retail
     case Travel_Transportation
-    case Categories_Total_Count
 }
 
 public func FilterCategoryDisplayString(category : FilterCategory) -> String {
