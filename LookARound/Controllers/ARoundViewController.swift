@@ -23,6 +23,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     @IBOutlet weak var mapTop: NSLayoutConstraint!
     
     let sceneLocationView = SceneLocationView()
+    var locationNodes = [LocationNode]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,6 +108,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
             let pinLocationNode = LocationAnnotationNode(location: pinLocation, image: pinImage)            
             pinLocationNode.scaleRelativeToDistance = false
             
+            locationNodes.append(pinLocationNode)
             sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: pinLocationNode)
         }
     }
@@ -139,11 +141,17 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     }
     
     func refreshPins(withCategories categories: [FilterCategory]) {
+        // Remove existing pins
+        for (index, currentLocationNode) in locationNodes.enumerated() {
+            sceneLocationView.removeLocationNode(locationNode: currentLocationNode)
+        }
+        locationNodes.removeAll()
+        
+        // Add new pins
         PlaceSearch().fetchPlaces(with: categories, success: { [weak self] (places: [Place]?) in
             if let places = places {
                 self?.addPlaces(places: places)
                 self?.mapView.addPlaces(places: places)
-                // TODO: Remove previous pins and add these new pins
             }
         }) { (error: Error) in
             print("Error fetching places with updated filters. Error: \(error)")
