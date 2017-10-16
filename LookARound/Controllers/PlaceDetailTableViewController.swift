@@ -40,8 +40,13 @@ internal class PlaceDetailTableViewController: UITableViewController {
     // MARK: - Helpers
     
     private func setupViews() {
-        if let imageURL = place.picture {
-            self.placeImageView.setImageWith(URL(string: imageURL)!)
+        guard let place = place else {
+            return
+        }
+        if let imageURLString = place.picture {
+            if let imageURL = URL(string: imageURLString) {
+                self.placeImageView.setImageWith(imageURL)
+            }
         }
         nameLabel.text = place.name
         checkinsCountLabel.text = "\(place.checkins ?? 0) checkins"
@@ -54,6 +59,9 @@ internal class PlaceDetailTableViewController: UITableViewController {
     
     private func setupMapView() {
         let annotation = MKPointAnnotation()
+        guard let place = place else {
+            return
+        }
         annotation.coordinate = place.location
         placeMapView.addAnnotation(annotation)
         placeMapView.showAnnotations([annotation], animated: true)

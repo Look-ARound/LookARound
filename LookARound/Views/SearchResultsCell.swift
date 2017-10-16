@@ -28,8 +28,9 @@ class SearchResultsCell: UITableViewCell {
             }
 
             if let urlString = place.picture {
-                let url = URL(string: urlString)
-                pictureImageView.setImageWith(url!)
+                if let url = URL(string: urlString) {
+                    pictureImageView.setImageWith(url)
+                }
             }
         }
     }
