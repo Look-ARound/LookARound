@@ -23,6 +23,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     @IBOutlet weak var mapTop: NSLayoutConstraint!
     
     let sceneLocationView = SceneLocationView()
+    var locationNodes = [LocationNode]()
     
     var adjustNorthByTappingSidesOfScreen = true
     var centerMapOnUserLocation: Bool = true
@@ -90,10 +91,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         sceneLocationView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
         sceneLocationView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
         sceneLocationView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        
-        sceneLocationView.locationDelegate = self
-        
-        sceneLocationView.locationEstimateMethod = .coreLocationDataOnly
+                
         //sceneLocationView.showAxesNode = true
         sceneLocationView.locationDelegate = self
         //sceneLocationView.locationEstimateMethod = .mostRelevantEstimate
@@ -114,12 +112,12 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
             let pinLocation = CLLocation(coordinate: pinCoordinate, altitude: CLLocationDistance(50 + delta))
             
             let origImage = UIImage(named: pinName)!
-            let pinImage =  origImage.addText(name as! NSString, atPoint: CGPoint(x: 15, y: 0), textColor:nil, textFont:UIFont.systemFont(ofSize: 26))
+            let pinImage =  origImage.addText(name as NSString, atPoint: CGPoint(x: 15, y: 0), textColor:nil, textFont:UIFont.systemFont(ofSize: 26))
             
-            var pinLocationNode = LocationAnnotationNode(location: pinLocation, image: pinImage)
-            
+            let pinLocationNode = LocationAnnotationNode(location: pinLocation, image: pinImage)            
             pinLocationNode.scaleRelativeToDistance = false
             
+            locationNodes.append(pinLocationNode)
             sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: pinLocationNode)
             
             delta += 10
@@ -190,11 +188,18 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     }
     
     func refreshPins(withCategories categories: [FilterCategory]) {
+
+        // Remove existing pins
+        for (index, currentLocationNode) in locationNodes.enumerated() {
+            sceneLocationView.removeLocationNode(locationNode: currentLocationNode)
+        }
+        locationNodes.removeAll()
+        
+        // Add new pins
         PlaceSearch().fetchPlaces(with: categories, location: self.mapView.locValue, success: { [weak self] (places: [Place]?) in
             if let places = places {
                 self?.addPlaces(places: places)
                 self?.mapView.addPlaces(places: places)
-                // TODO: Remove previous pins and add these new pins
             }
         }) { (error: Error) in
             print("Error fetching places with updated filters. Error: \(error)")
