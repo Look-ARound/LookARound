@@ -15,13 +15,14 @@ internal class PlaceDetailTableViewController: UITableViewController {
     
     @IBOutlet private var placeImageView: UIImageView!
     @IBOutlet private var nameLabel: UILabel!
+    @IBOutlet private var contextLabel: UILabel!
     @IBOutlet private var checkinsCountLabel: UILabel!
     @IBOutlet private var likesCountLabel: UILabel!
     @IBOutlet private var ratingView: HCSStarRatingView!
     @IBOutlet private var placeMapView: MKMapView!
     @IBOutlet private var addressLabel: UILabel!
     
-    internal var place: Place!
+    internal var place: Place?
     
     // MARK: - Lifecycles
     
@@ -47,6 +48,7 @@ internal class PlaceDetailTableViewController: UITableViewController {
         likesCountLabel.text = "\(place.likes ?? 0) likes"
         ratingView.value = CGFloat(place.rating ?? 0)
         addressLabel.text = place.address
+        contextLabel.text = place.context
         setupMapView()
     }
     
