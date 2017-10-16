@@ -29,6 +29,7 @@ internal class Place: NSObject {
     var address: String?
     var about: String?
     var categories: [Categories]?
+    var thumbnail: String? = ""
     var picture: String? = ""
     var contextCount: Int?
     var context: String?
@@ -49,14 +50,16 @@ internal class Place: NSObject {
         name = json["name"].stringValue
         latitude = json["location"]["latitude"].doubleValue
         longitude = json["location"]["longitude"].doubleValue
-        address = json["address"].stringValue
+        address = json["location"]["street"].stringValue
         about = json["about"].stringValue
-        picture = json["picture"]["data"]["url"].stringValue
+        thumbnail = json["picture"]["data"]["url"].stringValue
+        picture = json["cover"]["source"].stringValue
         context = json["context"]["friends_who_like"]["summary"]["social_sentence"].stringValue
         contextCount = json["context"]["friends_who_like"]["summary"]["total_count"].intValue
         checkins = json["checkins"].intValue
         engagement = json["engagement"]["social_sentence"].stringValue
         likes = json["engagement"]["count"].intValue
+
     }
     
     // MANUAL INIT for debugging and testing

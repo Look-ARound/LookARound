@@ -75,8 +75,9 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
             if let places = places {
                 self.placeLabel.text = places[1].name
                 self.placeLabel.sizeToFit()
-                let url = URL(string: places[1].picture!)
-                self.placeImageView.setImageWith(url!)
+                if let url = URL(string: places[1].picture!) {
+                    self.placeImageView.setImageWith(url)
+                }
                 self.placeContextLabel.text = places[1].context
                 self.placeContextLabel.sizeToFit()
                 self.places = places

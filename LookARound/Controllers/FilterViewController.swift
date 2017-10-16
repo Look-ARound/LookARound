@@ -35,17 +35,29 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         filterTableView.rowHeight = UITableViewAutomaticDimension
         
         filterTableView.tableFooterView = UIView()
+        
+        // TODO: Can we directly go to search results VC from here without going through the login page? I (Angela)
+        // tried instantiating a SearchResultsViewController directly but it's not that easy.
+//        let resultsButton = UIBarButtonItem(title: "List Results", style: .plain, target: self, action: #selector(onResultsButton))
+//        navigationItem.rightBarButtonItem = resultsButton
+
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         // 1st section: filters
         // 2nd section: log in rows, if the user isn't already logged in
-        var numSections = 1
+        
+        /* Final behavior: Use this to hide login button if user is already logged in
+        // var numSections = 1
         
         if AccessToken.current == nil {
             // User is not logged in
             numSections = 2
         }
+         */
+        
+        // Forcing to always show 2 for debugging since we want to be able to access the login screen and logout button
+        let numSections = 2
         
         return numSections
     }
@@ -95,6 +107,12 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
         loginViewController.mapView = mapView
         self.navigationController?.pushViewController(loginViewController, animated: true)
+    }
+    
+    @objc func onResultsButton() {
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        let resultsViewController = storyboard.instantiateViewController(withIdentifier: "SearchResultsViewController") as! SearchResultsViewController
+        self.navigationController?.pushViewController(resultsViewController, animated: true)
     }
     
     @IBAction func onCancel(_ sender: Any) {
