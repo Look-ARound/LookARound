@@ -26,6 +26,9 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     let sceneLocationView = SceneLocationView()
     var filterCategories : [FilterCategory]!
     
+    var adjustNorthByTappingSidesOfScreen = true
+    var centerMapOnUserLocation: Bool = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,12 +51,13 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
             button.alpha = 0.6
         }
     }
+
     
     func initMap()
     {
         mapView.alpha = 0.9
         // Move mapView offscreen (below view)
-        self.view.layoutIfNeeded()
+        self.view.layoutIfNeeded() // Do this, otherwise frame.height will be incorrect
         mapTop.constant = mapView.frame.height
         mapBottom.constant = mapView.frame.height
     }
@@ -95,13 +99,16 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     
     func addPlaces( places: [Place] )
     {
+        var delta = 0
+        print( "* places.count=\(places.count)")
         for index in 0..<places.count {
             let place = places[index]
             
             let name = place.name
             let pinName = "pin_home"
             
-            let pinLocation = CLLocation(latitude: place.latitude, longitude: place.longitude)
+            let pinCoordinate = CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
+            let pinLocation = CLLocation(coordinate: pinCoordinate, altitude: CLLocationDistance(50 + delta))
             
             let origImage = UIImage(named: pinName)!
             let pinImage =  origImage.addText(name as! NSString, atPoint: CGPoint(x: 15, y: 0), textColor:nil, textFont:UIFont.systemFont(ofSize: 26))
@@ -111,6 +118,11 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
             pinLocationNode.scaleRelativeToDistance = false
             
             sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: pinLocationNode)
+            
+            delta += 10
+            if (index % 5) == 0 {
+                delta = 0
+            }
         }
     }
     
@@ -131,6 +143,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         let loginNavigationController = storyboard.instantiateViewController(withIdentifier: "LoginNavigationController") as! UINavigationController
         
         let loginViewController = loginNavigationController.topViewController as! LoginViewController
+        loginViewController.mapView = mapView
         loginViewController.completionHandler = { places in
             print( "* places.count=\(places.count)")
             self.addPlaces( places: places )
@@ -149,10 +162,41 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         present(filterNVC, animated: true, completion: nil)
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        
+        if let touch = touches.first {
+            if touch.view != nil {
+                if (mapView == touch.view! ||
+                    mapView.recursiveSubviews().contains(touch.view!)) {
+                    centerMapOnUserLocation = false
+                } else {
+                    
+                    let location = touch.location(in: self.view)
+                    
+                    if location.x <= 40 && adjustNorthByTappingSidesOfScreen {
+                        print("left side of the screen")
+                        sceneLocationView.moveSceneHeadingAntiClockwise(degrees: 10)
+                    } else if location.x >= view.frame.size.width - 40 && adjustNorthByTappingSidesOfScreen {
+                        print("right side of the screen")
+                        sceneLocationView.moveSceneHeadingClockwise(degrees: 10)
+                    } else {
+                        /*
+                        let image = UIImage(named: "pin")!
+                        let annotationNode = LocationAnnotationNode(location: nil, image: image)
+                        annotationNode.scaleRelativeToDistance = true
+                        sceneLocationView.addLocationNodeForCurrentPosition(locationNode: annotationNode)
+                         */
+                    }
+                }
+            }
+        }
+    }
+    
     // MARK: - FilterViewControllerDelegate
     func filterViewController(_filterViewController: FilterViewController, didSelectCategories categories: [FilterCategory]) {
         filterCategories = categories
-        PlaceSearch().fetchPlaces(with: filterCategories, success: { [weak self] (places: [Place]?) in
+        PlaceSearch().fetchPlaces(with: filterCategories, location: self.mapView.locValue, success: { [weak self] (places: [Place]?) in
             if let places = places {
                 self?.addPlaces(places: places)
                 self?.mapView.addPlaces(places: places)
@@ -213,6 +257,20 @@ extension UIView {
         }
         
         return recursiveSubviews
+    }
+}
+
+extension SceneLocationView {
+    ///Moves the scene heading clockwise by 1 degree
+    ///Intended for correctional purposes
+    public func moveSceneHeadingClockwise( degrees: Float ) {
+        sceneNode?.eulerAngles.y -= Float(degrees ).degreesToRadians
+    }
+    
+    ///Moves the scene heading anti-clockwise by 1 degree
+    ///Intended for correctional purposes
+    public func moveSceneHeadingAntiClockwise( degrees: Float ) {
+        sceneNode?.eulerAngles.y += Float(degrees).degreesToRadians
     }
 }
 

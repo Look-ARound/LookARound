@@ -13,8 +13,9 @@ class MapView: UIView, CLLocationManagerDelegate {
 
     @IBOutlet var contentView: UIView!
     @IBOutlet weak var mapView: MKMapView!
-    
+    var locValue: CLLocationCoordinate2D!
     var locationManager : CLLocationManager!
+    
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -73,6 +74,28 @@ class MapView: UIView, CLLocationManagerDelegate {
         mapView.addAnnotation(annotation)
     }
     
+    
+    func getCurrentLocation() {
+        let locationManager = CLLocationManager()
+        
+        // Ask for Authorization from the User.
+        self.locationManager.requestAlwaysAuthorization()
+        
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+//    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        var locValue:CLLocationCoordinate2D = manager.location.coordinate
+//        print("locations = \(locValue.latitude) \(locValue.longitude)")
+//    }
+    
     // MARK: - CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == CLAuthorizationStatus.authorizedWhenInUse {
@@ -86,5 +109,8 @@ class MapView: UIView, CLLocationManagerDelegate {
             let region = MKCoordinateRegionMake(location.coordinate, span)
             mapView.setRegion(region, animated: false)
         }
+        
+        locValue = manager.location!.coordinate
+        print("locations = \(locValue.latitude) \(locValue.longitude)")
     }
 }

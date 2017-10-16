@@ -18,6 +18,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
     @IBOutlet weak var placeImageView: UIImageView!
     @IBOutlet weak var placeContextLabel: UILabel!
     
+    var mapView: MapView!
     var places: [Place]?
     var completionHandler: (([Place]) -> Void)?
     
@@ -69,7 +70,8 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
     @IBAction func onAroundMe(_ sender: Any) {
         print("fetching places")
         let categories = [FilterCategory.Food_Beverage, FilterCategory.Fitness_Recreation]
-        PlaceSearch().fetchPlaces(with: categories, success: { (places : [Place]?) in
+        
+         PlaceSearch().fetchPlaces(with: categories, location: mapView.locValue, success: { (places : [Place]?) in
             if let places = places {
                 self.placeLabel.text = places[1].name
                 self.placeLabel.sizeToFit()
@@ -86,6 +88,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         }) { (error: Error) in
             print("Custom Graph Request Failed: \(error)")
         }
+ 
     }
     
     // MARK: - Navigation

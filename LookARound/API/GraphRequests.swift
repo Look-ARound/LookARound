@@ -18,9 +18,9 @@ enum sortMethod: Int {
 
 
 struct PlaceSearch {
-    func fetchPlaces(with categories:[FilterCategory], success: @escaping ([Place]?)->(), failure: @escaping (Error)->()) -> Void {
+    func fetchPlaces(with categories:[FilterCategory], location: CLLocationCoordinate2D,  success: @escaping ([Place]?)->(), failure: @escaping (Error)->()) -> Void {
         var request = PlaceSearchRequest()
-        request.graphPath = graphPathString(categories: categories)
+        request.graphPath = graphPathString(categories: categories, location: location)
         
         let searchConnection = GraphRequestConnection()
         searchConnection.add(request) { (response, result: GraphRequestResult) in
@@ -89,12 +89,17 @@ struct MyProfileRequest: GraphRequestProtocol {
     var apiVersion: GraphAPIVersion = .defaultVersion
 }
 
-func graphPathString(categories : [FilterCategory]) -> String {
+func graphPathString(categories : [FilterCategory], location: CLLocationCoordinate2D) -> String {
     var categoriesStr = ""
     for category in categories {
         categoriesStr += "%22\(FilterCategorySearchString(category: category))%22,"
     }
-    let graphPath = "/search?type=place&center=37.4816734,-122.1556204&categories=[" + categoriesStr + "]"
+    
+    let graphPath = "/search?type=place&center=\(location.latitude),\(location.longitude)&distance=1000&categories=[" + categoriesStr + "]"
+    
+
+    // let graphPath = "/search?type=place&categories=[" + categoriesStr + "]"
+    
     
     return graphPath
 }
