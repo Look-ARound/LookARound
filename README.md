@@ -9,17 +9,17 @@ Wherever you are, look around with AR to see recommended places to visit.
 ## User Stories
 
 Initial: AR View
-- [ ] When user looks at what’s nearby them, they see recommended places available near them
-- [ ] The recommended places are from celebrities or what’s popular
-- [ ] Alternative view recommended places on a 2D map
+- [x] When user looks at what’s nearby them, they see recommended places available near them
+- [x] The recommended places are from celebrities or what’s popular
+- [x] Alternative view recommended places on a 2D map
 
 Filtering
-- [ ] User can choose a specific category they want to see
+- [x] User can choose a specific category they want to see
 - [ ] Logged in users can toggle between public recommendations and friends’ recommendations
 - [ ] Logged in users can pick a specific friend to view
 
 Logging In
-- [ ] User can log in with a social media account to get places their friends/following celebs have visited
+- [x] User can log in with a social media account to get places their friends/following celebs have visited
 
 Place Detail
 - [ ] User can preview a POI to decide if they want to go: Show name, description, hours, photos, tips
@@ -47,9 +47,7 @@ Backend
 
 Here's a walkthrough of implemented user stories:
 
-<img src='' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
+<img src='https://youtu.be/bs_l4wPPPl0' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 ## Notes
 
