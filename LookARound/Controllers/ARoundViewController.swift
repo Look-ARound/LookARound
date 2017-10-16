@@ -105,10 +105,9 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
             let pinLocation = CLLocation(latitude: place.latitude, longitude: place.longitude)
             
             let origImage = UIImage(named: pinName)!
-            let pinImage =  origImage.addText(name as! NSString, atPoint: CGPoint(x: 15, y: 0), textColor:nil, textFont:UIFont.systemFont(ofSize: 26))
+            let pinImage =  origImage.addText(name as NSString, atPoint: CGPoint(x: 15, y: 0), textColor:nil, textFont:UIFont.systemFont(ofSize: 26))
             
-            var pinLocationNode = LocationAnnotationNode(location: pinLocation, image: pinImage)
-            
+            let pinLocationNode = LocationAnnotationNode(location: pinLocation, image: pinImage)            
             pinLocationNode.scaleRelativeToDistance = false
             
             sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: pinLocationNode)
