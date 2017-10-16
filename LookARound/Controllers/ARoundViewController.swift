@@ -68,7 +68,10 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         sceneLocationView.run()
         
         self.navigationController?.navigationBar.isHidden = true
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
 
     }
     
@@ -106,7 +109,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
             let place = places[index]
             
             let name = place.name
-            let pinName = "pin_home"
+            let pinName = "pin"
             
             let pinCoordinate = CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
             let pinLocation = CLLocation(coordinate: pinCoordinate, altitude: CLLocationDistance(50 + delta))
@@ -128,6 +131,10 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     }
     
     @IBAction func onMapButton(_ sender: Any) {
+        
+        // Set up default filter categories for inital launch
+        let categories = [FilterCategory.Food_Beverage, FilterCategory.Fitness_Recreation, FilterCategory.Arts_Entertainment]
+        refreshPins(withCategories: categories)
         
         // Slide map up/down from bottom
         let distance = self.mapBottom?.constant == 0 ? mapView.frame.height : 0
@@ -187,12 +194,17 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         refreshPins(withCategories: categories)
     }
     
-    func refreshPins(withCategories categories: [FilterCategory]) {
-
+    func removeExistingPins() {
         // Remove existing pins
         for (index, currentLocationNode) in locationNodes.enumerated() {
             sceneLocationView.removeLocationNode(locationNode: currentLocationNode)
         }
+    }
+    
+    func refreshPins(withCategories categories: [FilterCategory]) {
+
+        removeExistingPins()
+
         locationNodes.removeAll()
         
         // Add new pins
@@ -274,13 +286,13 @@ extension UIView {
 }
 
 extension SceneLocationView {
-    ///Moves the scene heading clockwise by 1 degree
+    ///Moves the scene heading clockwise by "degrees" degree
     ///Intended for correctional purposes
     public func moveSceneHeadingClockwise( degrees: Float ) {
         sceneNode?.eulerAngles.y -= Float(degrees ).degreesToRadians
     }
     
-    ///Moves the scene heading anti-clockwise by 1 degree
+    ///Moves the scene heading anti-clockwise by "degrees" degree
     ///Intended for correctional purposes
     public func moveSceneHeadingAntiClockwise( degrees: Float ) {
         sceneNode?.eulerAngles.y += Float(degrees).degreesToRadians
