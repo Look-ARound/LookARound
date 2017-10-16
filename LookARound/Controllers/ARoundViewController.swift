@@ -23,21 +23,19 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     @IBOutlet weak var mapTop: NSLayoutConstraint!
     
     let sceneLocationView = SceneLocationView()
-    var filterCategories : [FilterCategory]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addARScene()
+        initMap()
 
         // Set up the UI elements as per the app theme
         prepButtonsWithARTheme(buttons: [filterButton, mapButton])
         
         // Set up default filter categories for inital launch
-        filterCategories = [FilterCategory.Food_Beverage, FilterCategory.Fitness_Recreation]
-        // TODO: populate the AR and map view with inital set of pins returned by a query with the above categories
-        
-        initMap()
+        let categories = [FilterCategory.Food_Beverage, FilterCategory.Fitness_Recreation, FilterCategory.Arts_Entertainment]
+        refreshPins(withCategories: categories)
     }
     
     func prepButtonsWithARTheme(buttons : [UIButton]) {
@@ -141,8 +139,11 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     
     // MARK: - FilterViewControllerDelegate
     func filterViewController(_filterViewController: FilterViewController, didSelectCategories categories: [FilterCategory]) {
-        filterCategories = categories
-        PlaceSearch().fetchPlaces(with: filterCategories, success: { [weak self] (places: [Place]?) in
+        refreshPins(withCategories: categories)
+    }
+    
+    func refreshPins(withCategories categories: [FilterCategory]) {
+        PlaceSearch().fetchPlaces(with: categories, success: { [weak self] (places: [Place]?) in
             if let places = places {
                 self?.addPlaces(places: places)
                 self?.mapView.addPlaces(places: places)
