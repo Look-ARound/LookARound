@@ -84,10 +84,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         sceneLocationView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
         sceneLocationView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
         sceneLocationView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        
-        sceneLocationView.locationDelegate = self
-        
-        sceneLocationView.locationEstimateMethod = .coreLocationDataOnly
+                
         //sceneLocationView.showAxesNode = true
         sceneLocationView.locationDelegate = self
         //sceneLocationView.locationEstimateMethod = .mostRelevantEstimate
