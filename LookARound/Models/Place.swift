@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import SwiftyJSON
 
 enum Categories: String {
     case artsEntertainment = "ARTS_ENTERTAINMENT"
@@ -20,10 +21,9 @@ enum Categories: String {
     case travelTransportation = "TRAVEL_TRANSPORTATION"
 }
 
-class Place: NSObject {
+internal class Place: NSObject {
     var id: Int64
     var name: String
-    // var location: CLLocationCoordinate2D // Deprecated
     var latitude: Double
     var longitude: Double
     var address: String?
@@ -36,12 +36,34 @@ class Place: NSObject {
     var likes: Int?
     var engagement: String?
     var rating: Int?
-
+    
+    var location: CLLocationCoordinate2D {
+        get {
+            return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        }
+    }
+    
+    init?(json: JSON) {
+        // TODO Guard against json not having required values
+        id = Int64(json["id"].intValue)
+        name = json["name"].stringValue
+        latitude = json["location"]["latitude"].doubleValue
+        longitude = json["location"]["longitude"].doubleValue
+        address = json["address"].stringValue
+        about = json["about"].stringValue
+        picture = json["picture"]["data"]["url"].stringValue
+        context = json["context"]["friends_who_like"]["summary"]["social_sentence"].stringValue
+        contextCount = json["context"]["friends_who_like"]["summary"]["total_count"].intValue
+        checkins = json["checkins"].intValue
+        engagement = json["engagement"]["social_sentence"].stringValue
+        likes = json["engagement"]["count"].intValue
+    }
+    
+    // MANUAL INIT for debugging and testing
     init(id: Int64, name: String, latitude: Double, longitude: Double) {
         self.id = id
         self.name = name
         self.latitude = latitude
         self.longitude = longitude
     }
-
 }

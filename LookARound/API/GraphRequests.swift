@@ -18,6 +18,16 @@ enum sortMethod: Int {
 
 
 struct PlaceSearch {
+    func fetchPlaces(with categories:[FilterCategory], success: @escaping ([Place]?)->(), failure: @escaping (Error)->()) -> Void {
+        
+        let location = CLLocationCoordinate2D(latitude: 37.4816734, longitude: -122.1556204)
+        fetchPlaces(with: categories, location: location, success: { places in
+            success(places)
+        }) { error in
+            failure(error)
+        }
+    }
+            
     func fetchPlaces(with categories:[FilterCategory], location: CLLocationCoordinate2D,  success: @escaping ([Place]?)->(), failure: @escaping (Error)->()) -> Void {
         var request = PlaceSearchRequest()
         request.graphPath = graphPathString(categories: categories, location: location)
@@ -133,22 +143,9 @@ private struct PlaceSearchResponse: GraphResponseProtocol {
         // print(json)
         places = []
         for spot in json["data"].arrayValue {
-            let placeID = spot["id"].intValue
-            let placeName = spot["name"].stringValue
-            let placeLat = spot["location"]["latitude"].doubleValue
-            let placeLon = spot["location"]["longitude"].doubleValue
-            
-            let thisPlace = Place(id: Int64(placeID), name: placeName, latitude: placeLat, longitude: placeLon)
-            
-            thisPlace.address = spot["address"].stringValue
-            thisPlace.about = spot["about"].stringValue
-            thisPlace.picture = spot["picture"]["data"]["url"].stringValue
-            thisPlace.context = spot["context"]["friends_who_like"]["summary"]["social_sentence"].stringValue
-            thisPlace.contextCount = spot["context"]["friends_who_like"]["summary"]["total_count"].intValue
-            thisPlace.checkins = spot["checkins"].intValue
-            thisPlace.engagement = spot["engagement"]["social_sentence"].stringValue
-            thisPlace.likes = spot["engagement"]["count"].intValue
-            places.append(thisPlace)
+            if let thisPlace = Place(json: spot) {
+                places.append(thisPlace)
+            }
         }
     }
 }

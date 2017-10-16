@@ -9,7 +9,7 @@
 import UIKit
 
 class SearchResultsViewController: UIViewController, UITableViewDataSource {
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private var tableView: UITableView!
     
     var places: [Place]!
     
@@ -38,14 +38,14 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource {
         // Dispose of any resources that can be recreated.
     }
     
-    @objc func sortByCheckins() {
+    @objc private func sortByCheckins() {
         places = PlaceSearch().sortPlaces(places: places, by: .checkins)
         tableView.reloadData()
         let indexPath = NSIndexPath(row: 0, section: 0) as IndexPath
         self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
     
-    @objc func sortByFriends() {
+    @objc private func sortByFriends() {
         places = PlaceSearch().sortPlaces(places: places, by: .friends)
         tableView.reloadData()
         let indexPath = NSIndexPath(row: 0, section: 0) as IndexPath

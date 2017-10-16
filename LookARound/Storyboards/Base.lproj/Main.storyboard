@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pKv-82-HO1">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -19,23 +19,10 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="41" translatesAutoresizingMaskIntoConstraints="NO" id="fgH-8Y-Shs">
-                                <rect key="frame" x="26" y="25" width="322" height="30"/>
+                                <rect key="frame" x="86.5" y="69" width="201" height="30"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UHX-6d-4P4">
-                                        <rect key="frame" x="0.0" y="0.0" width="80" height="30"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="NM4-r7-sN2"/>
-                                            <constraint firstAttribute="width" constant="80" id="peq-cZ-YPM"/>
-                                        </constraints>
-                                        <inset key="titleEdgeInsets" minX="10" minY="4" maxX="10" maxY="4"/>
-                                        <state key="normal" title="Friends"/>
-                                        <connections>
-                                            <action selector="onFriendsButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="JFk-30-dVJ"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HCu-Wa-LhW">
-                                        <rect key="frame" x="121" y="0.0" width="80" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="80" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="80" id="5FR-fs-ao7"/>
@@ -48,7 +35,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qwL-JG-K2x">
-                                        <rect key="frame" x="242" y="0.0" width="80" height="30"/>
+                                        <rect key="frame" x="121" y="0.0" width="80" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="6pZ-XK-hYv"/>
@@ -78,10 +65,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="P3l-nB-hn5"/>
                     </view>
+                    <navigationItem key="navigationItem" id="gPM-Sy-9sG"/>
                     <connections>
                         <outlet property="contentView" destination="mb1-1B-bIi" id="rKu-IN-KH1"/>
                         <outlet property="filterButton" destination="qwL-JG-K2x" id="bw3-NA-eDc"/>
-                        <outlet property="friendsButton" destination="UHX-6d-4P4" id="eBC-mo-nnq"/>
                         <outlet property="mapBottom" destination="gc3-s2-Rxn" id="2pf-a8-cJf"/>
                         <outlet property="mapButton" destination="HCu-Wa-LhW" id="GtI-GT-DR4"/>
                         <outlet property="mapTop" destination="Wpq-xQ-4UD" id="S2r-Bm-9eV"/>
@@ -90,7 +77,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="31.199999999999999" y="123.68815592203899"/>
+            <point key="canvasLocation" x="841" y="123"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="h8l-vu-por">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pKv-82-HO1" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="OOE-Q7-ls7">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BV1-FR-VrT" kind="relationship" relationship="rootViewController" id="ABa-Zi-Chu"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XUp-0o-Us2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="30.399999999999999" y="123.23838080959521"/>
         </scene>
     </scenes>
 </document>

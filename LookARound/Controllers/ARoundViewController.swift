@@ -14,8 +14,7 @@ import ARCL
 import CoreLocation
 
 @available(iOS 11.0, *)
-class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterViewControllerDelegate {
-    @IBOutlet weak var friendsButton: UIButton!
+class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterViewControllerDelegate, ARMapViewDelegate {
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var mapButton: UIButton!
     @IBOutlet weak var mapView: MapView!
@@ -24,7 +23,6 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     @IBOutlet weak var mapTop: NSLayoutConstraint!
     
     let sceneLocationView = SceneLocationView()
-    var filterCategories : [FilterCategory]!
     
     var adjustNorthByTappingSidesOfScreen = true
     var centerMapOnUserLocation: Bool = true
@@ -33,29 +31,30 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         super.viewDidLoad()
         
         addARScene()
+        initMap()
 
         // Set up the UI elements as per the app theme
-        prepButtonsWithARTheme(buttons: [filterButton, mapButton, friendsButton])
+        prepButtonsWithARTheme(buttons: [filterButton, mapButton])
         
         // Set up default filter categories for inital launch
-        filterCategories = [FilterCategory.Food_Beverage, FilterCategory.Fitness_Recreation]
-        
-        initMap()
+//        let categories = [FilterCategory.Food_Beverage, FilterCategory.Fitness_Recreation, FilterCategory.Arts_Entertainment]
+//        refreshPins(withCategories: categories)
+
     }
     
     func prepButtonsWithARTheme(buttons : [UIButton]) {
         for button in buttons {
             button.setTitleColor(UIColor.LABrand.primary, for: .normal)
-            button.layer.cornerRadius = friendsButton.frame.size.height * 0.5
+            button.layer.cornerRadius = button.frame.size.height * 0.5
             button.clipsToBounds = true
             button.alpha = 0.6
         }
     }
 
-    
     func initMap()
     {
         mapView.alpha = 0.9
+        mapView.delegate = self
         // Move mapView offscreen (below view)
         self.view.layoutIfNeeded() // Do this, otherwise frame.height will be incorrect
         mapTop.constant = mapView.frame.height
@@ -66,6 +65,10 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         super.viewWillAppear(animated)
 
         sceneLocationView.run()
+        
+        self.navigationController?.navigationBar.isHidden = true
+        
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -138,25 +141,12 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         }, completion: nil)
     }
     
-    @IBAction func onFriendsButton(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Login", bundle: nil)
-        let loginNavigationController = storyboard.instantiateViewController(withIdentifier: "LoginNavigationController") as! UINavigationController
-        
-        let loginViewController = loginNavigationController.topViewController as! LoginViewController
-        loginViewController.mapView = mapView
-        loginViewController.completionHandler = { places in
-            print( "* places.count=\(places.count)")
-            self.addPlaces( places: places )
-        }
-        
-        present(loginNavigationController, animated: true, completion: nil)
-    }
-    
     @IBAction func onFilterButton(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Filter", bundle: nil)
         let filterNVC = storyboard.instantiateViewController(withIdentifier: "FilterNavigationControllerID") as! UINavigationController
         
         let filterVC = filterNVC.topViewController as! FilterViewController
+        filterVC.mapView = mapView
         filterVC.delegate = self
         
         present(filterNVC, animated: true, completion: nil)
@@ -195,15 +185,33 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     
     // MARK: - FilterViewControllerDelegate
     func filterViewController(_filterViewController: FilterViewController, didSelectCategories categories: [FilterCategory]) {
-        filterCategories = categories
-        PlaceSearch().fetchPlaces(with: filterCategories, location: self.mapView.locValue, success: { [weak self] (places: [Place]?) in
+
+        refreshPins(withCategories: categories)
+    }
+    
+    func refreshPins(withCategories categories: [FilterCategory]) {
+        PlaceSearch().fetchPlaces(with: categories, location: self.mapView.locValue, success: { [weak self] (places: [Place]?) in
             if let places = places {
                 self?.addPlaces(places: places)
                 self?.mapView.addPlaces(places: places)
+                // TODO: Remove previous pins and add these new pins
             }
         }) { (error: Error) in
             print("Error fetching places with updated filters. Error: \(error)")
         }
+    }
+    
+    // MARK: - ARMapViewDelegate
+    func mapView(mapView: MapView, didSelectPlace place: Place) {
+        showDetailVC(forPlace: place)
+    }
+    
+    func showDetailVC(forPlace place: Place) {
+        let storyboard = UIStoryboard(name: "Detail", bundle: nil)
+        let detailViewController = storyboard.instantiateViewController(withIdentifier: "detailViewController") as! PlaceDetailTableViewController
+        detailViewController.place = place
+        
+        self.navigationController?.pushViewController(detailViewController, animated: true)
     }
     
     // MARK: - SceneLocationViewDelegate

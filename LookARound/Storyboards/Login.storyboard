@@ -77,7 +77,7 @@
                         <viewLayoutGuide key="safeArea" id="cvB-un-BWB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Log In" id="d84-Gv-vTH">
-                        <barButtonItem key="leftBarButtonItem" title="&lt; Back" id="lkb-1s-SOu">
+                        <barButtonItem key="leftBarButtonItem" title="Done" id="lkb-1s-SOu">
                             <connections>
                                 <action selector="onBackButton:" destination="kcj-Dp-m2g" id="DYO-6x-gmb"/>
                             </connections>
