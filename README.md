@@ -4,16 +4,14 @@ Wherever you are, look around with AR to see recommended places to visit.
 
 ## Wireframes
 
-<img src='https://user-images.githubusercontent.com/1326734/31310791-1c50c4c8-ab53-11e7-9ce8-8ce70c17859b.jpeg' title='Wireframe' width='' alt=‘LookARound Wireframes’ />
-
-[Video Walkthrough](https://youtu.be/bs_l4wPPPl0)
+<img src='https://user-images.githubusercontent.com/1326734/31310791-1c50c4c8-ab53-11e7-9ce8-8ce70c17859b.jpeg' title='Wireframe' width='400' alt=‘LookARound Wireframes’ />
 
 ## User Stories
 
 Initial: AR View
 - [x] When user looks at what’s nearby them, they see recommended places available near them
-- [x] The recommended places are from celebrities or what’s popular
-- [x] Alternative view recommended places on a 2D map
+- [ ] The recommended places are from celebrities or what’s popular
+- [x] Alternative view to see recommended places on a 2D map
 
 Filtering
 - [x] User can choose a specific category they want to see
@@ -24,7 +22,7 @@ Logging In
 - [x] User can log in with a social media account to get places their friends/following celebs have visited
 
 Place Detail
-- [ ] User can preview a POI to decide if they want to go: Show name, description, hours, photos, tips
+- [x] User can preview a POI to decide if they want to go: Show name, description, hours, photos, stats
 - [ ] Optional: User can mark POI as a place they want to visit
 - [ ] Optional: User can add POI to their own list
 - [ ] Optional: User can “check in” to the POI when they get there
@@ -49,7 +47,9 @@ Backend
 
 Here's a walkthrough of implemented user stories:
 
-[Video Walkthrough](https://youtu.be/bs_l4wPPPl0)
+<img src='lookaround-sprint1-1.gif' title='Sprint 1 Walkthrough' width='' alt='Sprint 1 Walkthrough Video' />
+
+GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
