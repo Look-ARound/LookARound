@@ -49,7 +49,7 @@ Backend
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://youtu.be/bs_l4wPPPl0' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+[Video Walkthrough](https://youtu.be/bs_l4wPPPl0)
 
 ## Notes
 
