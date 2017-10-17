@@ -85,6 +85,11 @@ class MapView: UIView, CLLocationManagerDelegate, MKMapViewDelegate {
         mapView.addAnnotation(annotation)
     }
     
+    func removeAnnotations()
+    {
+        mapView.removeAnnotations(mapView.annotations)
+    }
+    
     
     func getCurrentLocation() {
         let locationManager = CLLocationManager()

@@ -195,17 +195,20 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     }
     
     func removeExistingPins() {
-        // Remove existing pins
+        // Remove existing pins from 3D AR view
         for (index, currentLocationNode) in locationNodes.enumerated() {
             sceneLocationView.removeLocationNode(locationNode: currentLocationNode)
         }
+        locationNodes.removeAll()
+        
+        // Remove pins from 2D map
+        mapView.removeAnnotations()
+        
     }
     
     func refreshPins(withCategories categories: [FilterCategory]) {
 
         removeExistingPins()
-
-        locationNodes.removeAll()
         
         // Add new pins
         PlaceSearch().fetchPlaces(with: categories, location: self.mapView.locValue, success: { [weak self] (places: [Place]?) in
