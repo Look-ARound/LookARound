@@ -32,6 +32,20 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource {
         let friendsSortButton = UIBarButtonItem(title: "Friends", style: .plain, target: self, action: #selector(sortByFriends))
         navigationItem.rightBarButtonItems = [likeSortButton, friendsSortButton]
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        guard let tableView = tableView else {
+            print("still no tableview yet")
+            return
+        }
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 200
+        
+        print("first place is \(places[0].name)")
+        tableView.reloadData()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
