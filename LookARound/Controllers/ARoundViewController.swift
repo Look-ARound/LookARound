@@ -17,11 +17,9 @@ import CoreLocation
 class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterViewControllerDelegate, ARMapViewDelegate {
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var mapButton: UIButton!
-    @IBOutlet weak var mapView: MapView!
     @IBOutlet var contentView: UIView!
-    @IBOutlet weak var mapBottom: NSLayoutConstraint!
-    @IBOutlet weak var mapTop: NSLayoutConstraint!
     
+    var mapView: MapView!
     let sceneLocationView = SceneLocationView()
     var locationNodes = [LocationAnnotationNode]()
     var currentLocation: CLLocation! {
@@ -31,6 +29,9 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     }
     var currentCoordinates: CLLocationCoordinate2D?
     
+    var mapTop: NSLayoutConstraint!
+    var mapBottom: NSLayoutConstraint!
+    
     var adjustNorthByTappingSidesOfScreen = true
     var centerMapOnUserLocation: Bool = true
     
@@ -39,7 +40,9 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         
         addARScene()
         initMap()
-
+        
+        performFirstSearch()
+        
         // Set up the UI elements as per the app theme
         prepButtonsWithARTheme(buttons: [filterButton, mapButton])
         
@@ -84,6 +87,32 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - 2D Map setup
+    func initMap()
+    {
+        guard let coordinates = currentCoordinates else {
+            print("not ready for search - no coordinates!")
+            return
+        }
+        mapView = MapView(at: coordinates)
+        mapView.alpha = 0.9
+        mapView.delegate = self
+        
+        view.insertSubview(mapView, at: 1)
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        mapTop = mapView.topAnchor.constraint(equalTo: view.centerYAnchor)
+        mapTop.isActive = true
+        mapView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
+        mapView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
+        mapBottom = mapView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        mapBottom.isActive = true
+
+        // Move mapView offscreen (below view)
+        self.view.layoutIfNeeded() // Do this, otherwise frame.height will be incorrect
+        mapTop.constant = mapView.frame.height
+        mapBottom.constant = mapView.frame.height
+    }
+    
     // MARK: - AR scene setup
     func addARScene() {
         view.insertSubview(sceneLocationView, at: 0)
@@ -98,18 +127,30 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         sceneLocationView.locationDelegate = self
         //sceneLocationView.locationEstimateMethod = .mostRelevantEstimate
         sceneLocationView.locationEstimateMethod = .coreLocationDataOnly
+        
         guard let initialLocation = sceneLocationView.currentLocation() else {
             print("couldn't get current location!")
             return
         }
         currentLocation = initialLocation
-        performFirstSearch()
     }
     
     func performFirstSearch() {
         let categories = [FilterCategory.Food_Beverage, FilterCategory.Fitness_Recreation,
                           FilterCategory.Arts_Entertainment]
-        refreshPins(withCategories: categories)
+
+        guard let coordinates = currentCoordinates else {
+            print("not ready for search - no coordinates!")
+            return
+        }
+        PlaceSearch().fetchPlaces(with: categories, location: coordinates, success: { [weak self] (places: [Place]?) in
+            if let places = places {
+                self?.addPlaces(places: places)
+                self?.mapView.addPlaces(places: places)
+            }
+        }) { (error: Error) in
+            print("Error fetching places with updated filters. Error: \(error)")
+        }
     }
     
     func refreshPins(withCategories categories: [FilterCategory]) {
@@ -163,23 +204,20 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         }
     }
     
-    // MARK: - Map setup
-    func initMap()
-    {
-        mapView.alpha = 0.9
-        mapView.delegate = self
-        // Move mapView offscreen (below view)
-        self.view.layoutIfNeeded() // Do this, otherwise frame.height will be incorrect
-        mapTop.constant = mapView.frame.height
-        mapBottom.constant = mapView.frame.height
+    func removeExistingPins() {
+        // Remove existing pins from 3D AR view
+        for (index, currentLocationNode) in locationNodes.enumerated() {
+            sceneLocationView.removeLocationNode(locationNode: currentLocationNode)
+        }
+        locationNodes.removeAll()
+        
+        // Remove pins from 2D map
+        mapView.removeAnnotations()
+        
     }
     
     // MARK: - Button interactions
     @IBAction func onMapButton(_ sender: Any) {
-        
-        // Set up default filter categories for inital launch
-        let categories = [FilterCategory.Food_Beverage, FilterCategory.Fitness_Recreation, FilterCategory.Arts_Entertainment]
-        refreshPins(withCategories: categories)
         
         // Slide map up/down from bottom
         let distance = self.mapBottom?.constant == 0 ? mapView.frame.height : 0
@@ -241,18 +279,6 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     func filterViewController(_filterViewController: FilterViewController, didSelectCategories categories: [FilterCategory]) {
 
         refreshPins(withCategories: categories)
-    }
-    
-    func removeExistingPins() {
-        // Remove existing pins from 3D AR view
-        for (index, currentLocationNode) in locationNodes.enumerated() {
-            sceneLocationView.removeLocationNode(locationNode: currentLocationNode)
-        }
-        locationNodes.removeAll()
-        
-        // Remove pins from 2D map
-        mapView.removeAnnotations()
-        
     }
     
     // MARK: - ARMapViewDelegate

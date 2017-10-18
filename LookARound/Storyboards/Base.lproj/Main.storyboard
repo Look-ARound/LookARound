@@ -5,7 +5,6 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -49,18 +48,10 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Fu-KV-1Uc" customClass="MapView" customModule="LookARound" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="333.5" width="375" height="333.5"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="3Fu-KV-1Uc" firstAttribute="leading" secondItem="P3l-nB-hn5" secondAttribute="leading" id="G9e-tB-WpR"/>
                             <constraint firstItem="fgH-8Y-Shs" firstAttribute="top" secondItem="P3l-nB-hn5" secondAttribute="top" constant="5" id="TvR-ft-Ckz"/>
-                            <constraint firstItem="3Fu-KV-1Uc" firstAttribute="top" secondItem="mb1-1B-bIi" secondAttribute="centerY" id="Wpq-xQ-4UD"/>
-                            <constraint firstItem="3Fu-KV-1Uc" firstAttribute="trailing" secondItem="P3l-nB-hn5" secondAttribute="trailing" id="ZC5-lL-FbE"/>
-                            <constraint firstItem="3Fu-KV-1Uc" firstAttribute="bottom" secondItem="mb1-1B-bIi" secondAttribute="bottom" id="gc3-s2-Rxn"/>
                             <constraint firstItem="fgH-8Y-Shs" firstAttribute="centerX" secondItem="mb1-1B-bIi" secondAttribute="centerX" id="hbx-yI-uL1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="P3l-nB-hn5"/>
@@ -69,10 +60,7 @@
                     <connections>
                         <outlet property="contentView" destination="mb1-1B-bIi" id="rKu-IN-KH1"/>
                         <outlet property="filterButton" destination="qwL-JG-K2x" id="bw3-NA-eDc"/>
-                        <outlet property="mapBottom" destination="gc3-s2-Rxn" id="2pf-a8-cJf"/>
                         <outlet property="mapButton" destination="HCu-Wa-LhW" id="GtI-GT-DR4"/>
-                        <outlet property="mapTop" destination="Wpq-xQ-4UD" id="S2r-Bm-9eV"/>
-                        <outlet property="mapView" destination="3Fu-KV-1Uc" id="f9A-D1-TGa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
