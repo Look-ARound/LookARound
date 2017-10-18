@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ARCL
 
 class AnnotationNode: LocationAnnotationNode {
 

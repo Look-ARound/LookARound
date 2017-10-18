@@ -9,9 +9,8 @@
 import UIKit
 import SceneKit
 import MapKit
-import ARKit
-import ARCL
 import CoreLocation
+import ARKit
 
 @available(iOS 11.0, *)
 class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterViewControllerDelegate, ARMapViewDelegate {
@@ -214,6 +213,8 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
                 if (mapView == touch.view! ||
                     mapView.recursiveSubviews().contains(touch.view!)) {
                     centerMapOnUserLocation = false
+                } else if touch.location(in: view) {
+                    print("tapped a pin")
                 } else {
                     
                     let location = touch.location(in: self.view)
