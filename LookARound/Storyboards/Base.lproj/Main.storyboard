@@ -29,7 +29,7 @@
                                             <constraint firstAttribute="height" constant="30" id="jXe-LD-Rrg"/>
                                         </constraints>
                                         <inset key="titleEdgeInsets" minX="10" minY="4" maxX="10" maxY="4"/>
-                                        <state key="normal" title="Map"/>
+                                        <state key="normal" title="2D Map"/>
                                         <connections>
                                             <action selector="onMapButton:" destination="BV1-FR-VrT" eventType="touchUpInside" id="n8j-Bz-439"/>
                                         </connections>

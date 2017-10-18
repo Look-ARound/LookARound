@@ -10,6 +10,7 @@ import UIKit
 import FacebookLogin
 import FacebookCore
 import AFNetworking
+import CoreLocation
 
 class LoginViewController: UIViewController, LoginButtonDelegate {
     @IBOutlet private var nameLabel: UILabel!
@@ -18,7 +19,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
     @IBOutlet private var placeImageView: UIImageView!
     @IBOutlet private var placeContextLabel: UILabel!
     
-    var mapView: MapView!
+    var coordinates: CLLocationCoordinate2D!
     var places: [Place]?
     var completionHandler: (([Place]) -> Void)?
     
@@ -71,7 +72,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
         print("fetching places")
         let categories = [FilterCategory.Food_Beverage, FilterCategory.Fitness_Recreation]
         
-         PlaceSearch().fetchPlaces(with: categories, location: mapView.locValue, success: { (places : [Place]?) in
+         PlaceSearch().fetchPlaces(with: categories, location: coordinates, success: { (places : [Place]?) in
             if let places = places {
                 self.placeLabel.text = places[1].name
                 self.placeLabel.sizeToFit()

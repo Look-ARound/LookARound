@@ -23,7 +23,13 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     @IBOutlet weak var mapTop: NSLayoutConstraint!
     
     let sceneLocationView = SceneLocationView()
-    var locationNodes = [LocationNode]()
+    var locationNodes = [LocationAnnotationNode]()
+    var currentLocation: CLLocation! {
+        didSet {
+            currentCoordinates = currentLocation.coordinate
+        }
+    }
+    var currentCoordinates: CLLocationCoordinate2D?
     
     var adjustNorthByTappingSidesOfScreen = true
     var centerMapOnUserLocation: Bool = true
@@ -37,10 +43,6 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         // Set up the UI elements as per the app theme
         prepButtonsWithARTheme(buttons: [filterButton, mapButton])
         
-        // Set up default filter categories for inital launch
-//        let categories = [FilterCategory.Food_Beverage, FilterCategory.Fitness_Recreation, FilterCategory.Arts_Entertainment]
-//        refreshPins(withCategories: categories)
-
     }
     
     func prepButtonsWithARTheme(buttons : [UIButton]) {
@@ -50,16 +52,6 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
             button.clipsToBounds = true
             button.alpha = 0.6
         }
-    }
-
-    func initMap()
-    {
-        mapView.alpha = 0.9
-        mapView.delegate = self
-        // Move mapView offscreen (below view)
-        self.view.layoutIfNeeded() // Do this, otherwise frame.height will be incorrect
-        mapTop.constant = mapView.frame.height
-        mapBottom.constant = mapView.frame.height
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -75,6 +67,12 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
 
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        sceneLocationView.frame = view.bounds
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
@@ -86,6 +84,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - AR scene setup
     func addARScene() {
         view.insertSubview(sceneLocationView, at: 0)
         
@@ -99,6 +98,37 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         sceneLocationView.locationDelegate = self
         //sceneLocationView.locationEstimateMethod = .mostRelevantEstimate
         sceneLocationView.locationEstimateMethod = .coreLocationDataOnly
+        guard let initialLocation = sceneLocationView.currentLocation() else {
+            print("couldn't get current location!")
+            return
+        }
+        currentLocation = initialLocation
+        performFirstSearch()
+    }
+    
+    func performFirstSearch() {
+        let categories = [FilterCategory.Food_Beverage, FilterCategory.Fitness_Recreation,
+                          FilterCategory.Arts_Entertainment]
+        refreshPins(withCategories: categories)
+    }
+    
+    func refreshPins(withCategories categories: [FilterCategory]) {
+        
+        removeExistingPins()
+        
+        // Add new pins
+        guard let coordinates = currentCoordinates else {
+            print("not ready for search - no coordinates!")
+            return
+        }
+        PlaceSearch().fetchPlaces(with: categories, location: coordinates, success: { [weak self] (places: [Place]?) in
+            if let places = places {
+                self?.addPlaces(places: places)
+                self?.mapView.addPlaces(places: places)
+            }
+        }) { (error: Error) in
+            print("Error fetching places with updated filters. Error: \(error)")
+        }
     }
     
     func addPlaces( places: [Place] )
@@ -117,7 +147,10 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
             let origImage = UIImage(named: pinName)!
             let pinImage =  origImage.addText(name as NSString, atPoint: CGPoint(x: 15, y: 0), textColor:nil, textFont:UIFont.systemFont(ofSize: 26))
             
-            let pinLocationNode = LocationAnnotationNode(location: pinLocation, image: pinImage)            
+            let pinLocationNode = LocationAnnotationNode(location: pinLocation, image: pinImage)
+            
+            // Setting this to false for testing in suburbs where pins are widely spread out
+            // Change this to true to test overlay on actual buildings in a downtown
             pinLocationNode.scaleRelativeToDistance = false
             
             locationNodes.append(pinLocationNode)
@@ -130,6 +163,18 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         }
     }
     
+    // MARK: - Map setup
+    func initMap()
+    {
+        mapView.alpha = 0.9
+        mapView.delegate = self
+        // Move mapView offscreen (below view)
+        self.view.layoutIfNeeded() // Do this, otherwise frame.height will be incorrect
+        mapTop.constant = mapView.frame.height
+        mapBottom.constant = mapView.frame.height
+    }
+    
+    // MARK: - Button interactions
     @IBAction func onMapButton(_ sender: Any) {
         
         // Set up default filter categories for inital launch
@@ -151,8 +196,12 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         let filterNVC = storyboard.instantiateViewController(withIdentifier: "FilterNavigationControllerID") as! UINavigationController
         
         let filterVC = filterNVC.topViewController as! FilterViewController
-        filterVC.mapView = mapView
         filterVC.delegate = self
+        guard let coordinates = currentCoordinates else {
+            print("not ready for filters - no coordinates!")
+            return
+        }
+        filterVC.coordinates = coordinates
         
         present(filterNVC, animated: true, completion: nil)
     }
@@ -206,21 +255,6 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         
     }
     
-    func refreshPins(withCategories categories: [FilterCategory]) {
-
-        removeExistingPins()
-        
-        // Add new pins
-        PlaceSearch().fetchPlaces(with: categories, location: self.mapView.locValue, success: { [weak self] (places: [Place]?) in
-            if let places = places {
-                self?.addPlaces(places: places)
-                self?.mapView.addPlaces(places: places)
-            }
-        }) { (error: Error) in
-            print("Error fetching places with updated filters. Error: \(error)")
-        }
-    }
-    
     // MARK: - ARMapViewDelegate
     func mapView(mapView: MapView, didSelectPlace place: Place) {
         showDetailVC(forPlace: place)
@@ -254,16 +288,6 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     func sceneLocationViewDidUpdateLocationAndScaleOfLocationNode(sceneLocationView: SceneLocationView, locationNode: LocationNode) {
         
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 

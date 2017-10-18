@@ -8,6 +8,7 @@
 
 import UIKit
 import FacebookCore
+import CoreLocation
 
 protocol FilterViewControllerDelegate : NSObjectProtocol {
     func filterViewController(_filterViewController: FilterViewController, didSelectCategories categories: [FilterCategory])
@@ -22,7 +23,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBOutlet weak var filterTableView: UITableView!
     weak var delegate : FilterViewControllerDelegate?
-    var mapView: MapView!
+    var coordinates: CLLocationCoordinate2D!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,7 +106,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func showLoginScreen() {
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
         let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-        loginViewController.mapView = mapView
+        loginViewController.coordinates = coordinates
         self.navigationController?.pushViewController(loginViewController, animated: true)
     }
     
