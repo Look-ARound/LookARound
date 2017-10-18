@@ -75,7 +75,7 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
             if let places = places {
                 self.placeLabel.text = places[1].name
                 self.placeLabel.sizeToFit()
-                if let url = URL(string: places[1].picture!) {
+                if let url = URL(string: places[1].thumbnail!) {
                     self.placeImageView.setImageWith(url)
                 }
                 self.placeContextLabel.text = places[1].context
@@ -105,8 +105,6 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
             if let places = self.places {
                 print("attaching places")
                 destinationVC.places = places
-                // TODO Angela Calling viewDidLoad directly is not encouraged in iOS. For this particular use case, maybe you could reload the tableview in viewWillAppear? Another option would be to reload it in the setter of the places ivar. (Assuming that's what you're trying to do, else we should chat)
-                destinationVC.viewDidLoad()
             }
         }
     }

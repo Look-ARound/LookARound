@@ -59,7 +59,6 @@ internal class Place: NSObject {
         checkins = json["checkins"].intValue
         engagement = json["engagement"]["social_sentence"].stringValue
         likes = json["engagement"]["count"].intValue
-
     }
     
     // MANUAL INIT for debugging and testing

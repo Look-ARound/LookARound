@@ -27,7 +27,7 @@ class SearchResultsCell: UITableViewCell {
                 checkinsLabel.text = String(checkinCount)
             }
 
-            if let urlString = place.picture {
+            if let urlString = place.thumbnail {
                 if let url = URL(string: urlString) {
                     pictureImageView.setImageWith(url)
                 }
