@@ -22,7 +22,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     @IBOutlet weak var mapTop: NSLayoutConstraint!
     
     let sceneLocationView = SceneLocationView()
-    var locationNodes = [LocationAnnotationNode]()
+    var locationNodes = [AnnotationNode]()
     var currentLocation: CLLocation! {
         didSet {
             currentCoordinates = currentLocation.coordinate
@@ -138,6 +138,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
             let place = places[index]
             
             let name = place.name
+            let placeID = place.id
             let pinName = "pin"
             
             let pinCoordinate = CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
@@ -146,7 +147,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
             let origImage = UIImage(named: pinName)!
             let pinImage =  origImage.addText(name as NSString, atPoint: CGPoint(x: 15, y: 0), textColor:nil, textFont:UIFont.systemFont(ofSize: 26))
             
-            let pinLocationNode = LocationAnnotationNode(location: pinLocation, image: pinImage)
+            let pinLocationNode = AnnotationNode(location: pinLocation, image: pinImage, pinID: placeID)
             
             // Setting this to false for testing in suburbs where pins are widely spread out
             // Change this to true to test overlay on actual buildings in a downtown
@@ -213,8 +214,6 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
                 if (mapView == touch.view! ||
                     mapView.recursiveSubviews().contains(touch.view!)) {
                     centerMapOnUserLocation = false
-                } else if touch.location(in: view) {
-                    print("tapped a pin")
                 } else {
                     
                     let location = touch.location(in: self.view)
