@@ -23,7 +23,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     @IBOutlet weak var mapTop: NSLayoutConstraint!
     
     let sceneLocationView = SceneLocationView()
-    var locationNodes = [LocationAnnotationNode]() // was [LocationNode]()
+    var locationNodes = [LocationAnnotationNode]()
     var currentLocation: CLLocation! {
         didSet {
             currentCoordinates = currentLocation.coordinate
@@ -43,10 +43,6 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         // Set up the UI elements as per the app theme
         prepButtonsWithARTheme(buttons: [filterButton, mapButton])
         
-        // Set up default filter categories for inital launch
-//        let categories = [FilterCategory.Food_Beverage, FilterCategory.Fitness_Recreation, FilterCategory.Arts_Entertainment]
-//        refreshPins(withCategories: categories)
-
     }
     
     func prepButtonsWithARTheme(buttons : [UIButton]) {
@@ -56,16 +52,6 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
             button.clipsToBounds = true
             button.alpha = 0.6
         }
-    }
-
-    func initMap()
-    {
-        mapView.alpha = 0.9
-        mapView.delegate = self
-        // Move mapView offscreen (below view)
-        self.view.layoutIfNeeded() // Do this, otherwise frame.height will be incorrect
-        mapTop.constant = mapView.frame.height
-        mapBottom.constant = mapView.frame.height
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -98,6 +84,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - AR scene setup
     func addARScene() {
         view.insertSubview(sceneLocationView, at: 0)
         
@@ -120,13 +107,21 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     }
     
     func performFirstSearch() {
-        let categories = [FilterCategory.Food_Beverage, FilterCategory.Fitness_Recreation, FilterCategory.Arts_Entertainment]
+        let categories = [FilterCategory.Food_Beverage, FilterCategory.Fitness_Recreation,
+                          FilterCategory.Arts_Entertainment]
+        refreshPins(withCategories: categories)
+    }
+    
+    func refreshPins(withCategories categories: [FilterCategory]) {
+        
+        removeExistingPins()
+        
+        // Add new pins
         guard let coordinates = currentCoordinates else {
-            print("not ready for first search - no coordinates!")
+            print("not ready for search - no coordinates!")
             return
         }
-        PlaceSearch().fetchPlaces(with: categories, location: coordinates,
-                                  success: { [weak self] (places: [Place]?) in
+        PlaceSearch().fetchPlaces(with: categories, location: coordinates, success: { [weak self] (places: [Place]?) in
             if let places = places {
                 self?.addPlaces(places: places)
                 self?.mapView.addPlaces(places: places)
@@ -147,13 +142,16 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
             let pinName = "pin"
             
             let pinCoordinate = CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
-            let pinLocation = CLLocation(coordinate: pinCoordinate, altitude: 300) // was CLLocationDistance(50 + delta)
+            let pinLocation = CLLocation(coordinate: pinCoordinate, altitude: CLLocationDistance(50 + delta))
             
             let origImage = UIImage(named: pinName)!
             let pinImage =  origImage.addText(name as NSString, atPoint: CGPoint(x: 15, y: 0), textColor:nil, textFont:UIFont.systemFont(ofSize: 26))
             
-            let pinLocationNode = LocationAnnotationNode(location: pinLocation, image: pinImage)            
-            pinLocationNode.scaleRelativeToDistance = true
+            let pinLocationNode = LocationAnnotationNode(location: pinLocation, image: pinImage)
+            
+            // Setting this to false for testing in suburbs where pins are widely spread out
+            // Change this to true to test overlay on actual buildings in a downtown
+            pinLocationNode.scaleRelativeToDistance = false
             
             locationNodes.append(pinLocationNode)
             sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: pinLocationNode)
@@ -165,6 +163,18 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         }
     }
     
+    // MARK: - Map setup
+    func initMap()
+    {
+        mapView.alpha = 0.9
+        mapView.delegate = self
+        // Move mapView offscreen (below view)
+        self.view.layoutIfNeeded() // Do this, otherwise frame.height will be incorrect
+        mapTop.constant = mapView.frame.height
+        mapBottom.constant = mapView.frame.height
+    }
+    
+    // MARK: - Button interactions
     @IBAction func onMapButton(_ sender: Any) {
         
         // Set up default filter categories for inital launch
@@ -241,21 +251,6 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         
     }
     
-    func refreshPins(withCategories categories: [FilterCategory]) {
-
-        removeExistingPins()
-        
-        // Add new pins
-        PlaceSearch().fetchPlaces(with: categories, location: self.mapView.locValue, success: { [weak self] (places: [Place]?) in
-            if let places = places {
-                self?.addPlaces(places: places)
-                self?.mapView.addPlaces(places: places)
-            }
-        }) { (error: Error) in
-            print("Error fetching places with updated filters. Error: \(error)")
-        }
-    }
-    
     // MARK: - ARMapViewDelegate
     func mapView(mapView: MapView, didSelectPlace place: Place) {
         showDetailVC(forPlace: place)
@@ -289,16 +284,6 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     func sceneLocationViewDidUpdateLocationAndScaleOfLocationNode(sceneLocationView: SceneLocationView, locationNode: LocationNode) {
         
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
