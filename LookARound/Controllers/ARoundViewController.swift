@@ -23,7 +23,13 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     @IBOutlet weak var mapTop: NSLayoutConstraint!
     
     let sceneLocationView = SceneLocationView()
-    var locationNodes = [LocationNode]()
+    var locationNodes = [LocationAnnotationNode]() // was [LocationNode]()
+    var currentLocation: CLLocation! {
+        didSet {
+            currentCoordinates = currentLocation.coordinate
+        }
+    }
+    var currentCoordinates: CLLocationCoordinate2D?
     
     var adjustNorthByTappingSidesOfScreen = true
     var centerMapOnUserLocation: Bool = true
@@ -75,6 +81,12 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
 
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        sceneLocationView.frame = view.bounds
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
@@ -99,6 +111,29 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         sceneLocationView.locationDelegate = self
         //sceneLocationView.locationEstimateMethod = .mostRelevantEstimate
         sceneLocationView.locationEstimateMethod = .coreLocationDataOnly
+        guard let initialLocation = sceneLocationView.currentLocation() else {
+            print("couldn't get current location!")
+            return
+        }
+        currentLocation = initialLocation
+        performFirstSearch()
+    }
+    
+    func performFirstSearch() {
+        let categories = [FilterCategory.Food_Beverage, FilterCategory.Fitness_Recreation, FilterCategory.Arts_Entertainment]
+        guard let coordinates = currentCoordinates else {
+            print("not ready for first search - no coordinates!")
+            return
+        }
+        PlaceSearch().fetchPlaces(with: categories, location: coordinates,
+                                  success: { [weak self] (places: [Place]?) in
+            if let places = places {
+                self?.addPlaces(places: places)
+                self?.mapView.addPlaces(places: places)
+            }
+        }) { (error: Error) in
+            print("Error fetching places with updated filters. Error: \(error)")
+        }
     }
     
     func addPlaces( places: [Place] )
@@ -112,13 +147,13 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
             let pinName = "pin"
             
             let pinCoordinate = CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
-            let pinLocation = CLLocation(coordinate: pinCoordinate, altitude: CLLocationDistance(50 + delta))
+            let pinLocation = CLLocation(coordinate: pinCoordinate, altitude: 300) // was CLLocationDistance(50 + delta)
             
             let origImage = UIImage(named: pinName)!
             let pinImage =  origImage.addText(name as NSString, atPoint: CGPoint(x: 15, y: 0), textColor:nil, textFont:UIFont.systemFont(ofSize: 26))
             
             let pinLocationNode = LocationAnnotationNode(location: pinLocation, image: pinImage)            
-            pinLocationNode.scaleRelativeToDistance = false
+            pinLocationNode.scaleRelativeToDistance = true
             
             locationNodes.append(pinLocationNode)
             sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: pinLocationNode)
