@@ -196,8 +196,12 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         let filterNVC = storyboard.instantiateViewController(withIdentifier: "FilterNavigationControllerID") as! UINavigationController
         
         let filterVC = filterNVC.topViewController as! FilterViewController
-        filterVC.mapView = mapView
         filterVC.delegate = self
+        guard let coordinates = currentCoordinates else {
+            print("not ready for filters - no coordinates!")
+            return
+        }
+        filterVC.coordinates = coordinates
         
         present(filterNVC, animated: true, completion: nil)
     }
