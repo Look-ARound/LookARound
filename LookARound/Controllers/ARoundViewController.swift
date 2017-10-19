@@ -93,9 +93,11 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
             print("not ready for search - no coordinates!")
             return
         }
-        mapView = MapView(at: coordinates)
+        //mapView = MapView(at: coordinates)
+        mapView = MapView()
         mapView.alpha = 0.9
         mapView.delegate = self
+        sceneLocationView.locationManager.delegate = mapView
         
         view.insertSubview(mapView, at: 1)
         mapView.translatesAutoresizingMaskIntoConstraints = false
