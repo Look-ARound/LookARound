@@ -145,8 +145,9 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     }
     
     func performFirstSearch() {
-        let categories = [FilterCategory.Food_Beverage, FilterCategory.Fitness_Recreation,
-                          FilterCategory.Arts_Entertainment]
+        let categories = [FilterCategory.Food_Beverage, FilterCategory.Shopping_Retail,
+                          FilterCategory.Arts_Entertainment, FilterCategory.Travel_Transportation,
+                          FilterCategory.Fitness_Recreation]
 
         guard let coordinates = currentCoordinates else {
             print("not ready for search - no coordinates!")
@@ -192,8 +193,8 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
             let idName = String(place.id)
             let pinName = "pin"
             
-            let pinCoordinate = CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
-            let pinLocation = CLLocation(coordinate: pinCoordinate, altitude: CLLocationDistance(50 + delta))
+            let pinCoordinate = place.coordinate
+            let pinLocation = place.location // CLLocation(coordinate: pinCoordinate, altitude: CLLocationDistance(50 + delta))
             
             let origImage = UIImage(named: pinName)!
             let pinImage =  origImage.addText(name as NSString, atPoint: CGPoint(x: 15, y: 0), textColor:nil, textFont:UIFont.systemFont(ofSize: 26))

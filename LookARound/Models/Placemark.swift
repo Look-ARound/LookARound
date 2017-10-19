@@ -29,7 +29,7 @@ class Placemark: MKPlacemark {
     var place: Place?
     
     init(place: Place) {
-        let coordinate = place.location
+        let coordinate = place.coordinate
         self.place = place
         super.init(coordinate: coordinate)
     }

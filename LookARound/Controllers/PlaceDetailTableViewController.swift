@@ -62,7 +62,7 @@ internal class PlaceDetailTableViewController: UITableViewController {
         guard let place = place else {
             return
         }
-        annotation.coordinate = place.location
+        annotation.coordinate = place.coordinate
         placeMapView.addAnnotation(annotation)
         placeMapView.showAnnotations([annotation], animated: true)
     }

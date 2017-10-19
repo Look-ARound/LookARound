@@ -70,10 +70,13 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
     // Sample code for calling a place search to request an array of places near you
     @IBAction func onAroundMe(_ sender: Any) {
         print("fetching places")
-        let categories = [FilterCategory.Food_Beverage, FilterCategory.Fitness_Recreation]
+        let categories = [FilterCategory.Food_Beverage, FilterCategory.Shopping_Retail,
+                          FilterCategory.Arts_Entertainment, FilterCategory.Travel_Transportation,
+                          FilterCategory.Fitness_Recreation]
         
-         PlaceSearch().fetchPlaces(with: categories, location: coordinates, success: { (places : [Place]?) in
+        PlaceSearch().fetchPlaces(with: categories, location: coordinates, success: { (places : [Place]?) in
             if let places = places {
+                print("placecount = \(places.count)")
                 self.placeLabel.text = places[1].name
                 self.placeLabel.sizeToFit()
                 if let url = URL(string: places[1].thumbnail!) {
@@ -86,7 +89,6 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
                 // print("Custom Graph Request Succeeded: \(response)")
                 self.completionHandler?(places)
             }
-            //self.dismiss(animated: true, completion: nil )
         }) { (error: Error) in
             print("Custom Graph Request Failed: \(error)")
         }

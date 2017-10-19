@@ -12,14 +12,15 @@ import CoreLocation
 import SwiftyJSON
 
 enum sortMethod: Int {
-    case checkins = 0
+    case magic = 0
     case friends = 1
+    case checkins = 2
 }
 
 // MARK: - Place Search methods for Place Search Graph request
 struct PlaceSearch {
     // When no location detected, use default of Facebook Building 20
-    func fetchPlaces(with categories:[FilterCategory], success: @escaping ([Place]?)->(), failure: @escaping (Error)->()) -> Void {
+    func fetchPlaces(with categories:[FilterCategory]?, success: @escaping ([Place]?)->(), failure: @escaping (Error)->()) -> Void {
         
         let location = CLLocationCoordinate2D(latitude: 37.4816734, longitude: -122.1556204)
         fetchPlaces(with: categories, location: location, success: { places in
@@ -30,7 +31,7 @@ struct PlaceSearch {
     }
     
     // When no distance radius specified, use default of 1000 meters from center
-    func fetchPlaces(with categories:[FilterCategory], location: CLLocationCoordinate2D,  success: @escaping ([Place]?)->(), failure: @escaping (Error)->()) -> Void {
+    func fetchPlaces(with categories:[FilterCategory]?, location: CLLocationCoordinate2D,  success: @escaping ([Place]?)->(), failure: @escaping (Error)->()) -> Void {
         let distance = 1000
         fetchPlaces(with: categories, location: location, distance: distance, success: { places in
             success(places)
@@ -40,14 +41,18 @@ struct PlaceSearch {
     }
     
     // Fully featured PlaceSearch.fetchPlaces
-    func fetchPlaces(with categories:[FilterCategory], location: CLLocationCoordinate2D, distance: Int,
+    func fetchPlaces(with categories:[FilterCategory]?, location: CLLocationCoordinate2D, distance: Int,
                      success: @escaping ([Place]?)->(), failure: @escaping (Error)->()) -> Void {
         var request = PlaceSearchRequest()
-        request.graphPath = graphPathString(categories: categories)
+        if let categories = categories {
+            request.graphPath = graphPathString(categories: categories)
+        } else {
+            request.graphPath = "/search?"
+        }
         request.parameters?["type"] = "place"
         request.parameters?["center"] = "\(location.latitude), \(location.longitude)"
         request.parameters?["distance"] = distance
-        request.parameters?["limit"] = 10
+        request.parameters?["limit"] = 50
         
         let searchConnection = GraphRequestConnection()
         searchConnection.add(request) { (response, result: GraphRequestResult) in
@@ -61,32 +66,6 @@ struct PlaceSearch {
         searchConnection.start()
     }
     
-    func sortPlaces(places: [Place], by method: sortMethod) -> [Place] {
-        switch method {
-        case .checkins:
-            let sortedPlaces = places.sorted(by: {
-                guard let firstCheckins = $0.checkins else {
-                    return true
-                }
-                guard let secondCheckins = $1.checkins else {
-                    return true
-                }
-                return firstCheckins > secondCheckins
-            })
-            return sortedPlaces
-        case .friends:
-            let sortedPlaces = places.sorted(by: {
-                guard let firstFriends = $0.contextCount else {
-                    return false
-                }
-                guard let secondFriends = $1.contextCount else {
-                    return false
-                }
-                return firstFriends > secondFriends
-            })
-            return sortedPlaces
-        }
-    }
 }
 
 // Passing categories as an array in Parameters doesn't seem to be working so we need to construct a query string.
@@ -99,6 +78,43 @@ private func graphPathString(categories : [FilterCategory]) -> String {
     let graphPath = "/search?categories=[" + categoriesStr + "]"
     
     return graphPath
+}
+
+func sortPlaces(places: [Place], by method: sortMethod) -> [Place] {
+    switch method {
+    case .magic:
+        let friendSortFirst = sortPlaces(places: places, by: .friends)
+        guard let lastFriendsIndex = friendSortFirst.index(where: { $0.contextCount == 0}) else {
+            return friendSortFirst
+        }
+        let friendSortResult = Array(friendSortFirst[..<lastFriendsIndex])
+        let remainderPlaces = Array(friendSortFirst.suffix(from: lastFriendsIndex))
+        let checkinSortSecond = sortPlaces(places: remainderPlaces, by: .checkins)
+        let resultPlaces = friendSortResult + checkinSortSecond
+        return resultPlaces
+    case .checkins:
+        let sortedPlaces = places.sorted(by: {
+            guard let firstCheckins = $0.checkins else {
+                return true
+            }
+            guard let secondCheckins = $1.checkins else {
+                return true
+            }
+            return firstCheckins > secondCheckins
+        })
+        return sortedPlaces
+    case .friends:
+        let sortedPlaces = places.sorted(by: {
+            guard let firstFriends = $0.contextCount else {
+                return false
+            }
+            guard let secondFriends = $1.contextCount else {
+                return false
+            }
+            return firstFriends > secondFriends
+        })
+        return sortedPlaces
+    }
 }
 
 /// Use PlaceSearch().fetchPlaces instead of using this directly.
@@ -128,12 +144,16 @@ private struct PlaceSearchResponse: GraphResponseProtocol {
          */
         let json = JSON(rawResponse!)
         // print(json)
-        places = []
+        var rawPlaces: [Place] = []
         for spot in json["data"].arrayValue {
             if let thisPlace = Place(json: spot) {
-                places.append(thisPlace)
+                rawPlaces.append(thisPlace)
             }
         }
+        let sortedPlaces = sortPlaces(places: rawPlaces, by: .magic)
+        let end = min(sortedPlaces.count, 10)
+        print("end = \(end)")
+        places = Array(sortedPlaces[..<end])
     }
 }
 
