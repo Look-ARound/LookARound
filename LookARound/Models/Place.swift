@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import MapKit
 import SwiftyJSON
 
 enum Categories: String {
@@ -37,8 +38,18 @@ internal class Place: NSObject {
     var likes: Int?
     var engagement: String?
     var rating: Int?
+    var distance: CLLocationDistance?
     
-    var location: CLLocationCoordinate2D {
+    var location: CLLocation {
+        get {
+            return CLLocation(latitude: latitude, longitude: longitude)
+        }
+//        didSet {
+//            distance = location.distance(from: locationManager.sharedInstance.currentLocation())
+//        }
+    }
+    
+    var coordinate: CLLocationCoordinate2D {
         get {
             return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         }

@@ -53,19 +53,18 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource {
     }
     
     @objc private func sortByCheckins() {
-        places = PlaceSearch().sortPlaces(places: places, by: .checkins)
+        places = sortPlaces(places: places, by: .checkins)
         tableView.reloadData()
         let indexPath = NSIndexPath(row: 0, section: 0) as IndexPath
         self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
     
     @objc private func sortByFriends() {
-        places = PlaceSearch().sortPlaces(places: places, by: .friends)
+        places = sortPlaces(places: places, by: .friends)
         tableView.reloadData()
         let indexPath = NSIndexPath(row: 0, section: 0) as IndexPath
         self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
-
 }
 
 extension SearchResultsViewController: UITableViewDelegate {
