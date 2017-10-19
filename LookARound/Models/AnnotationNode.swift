@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 
 class AnnotationNode: LocationAnnotationNode {
-    var pinID: Int64?
+    var place: Place?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -20,8 +20,8 @@ class AnnotationNode: LocationAnnotationNode {
         super.init(location: location, image: image)
     }
     
-    public init(location: CLLocation?, image: UIImage, pinID: Int64) {
+    public init(location: CLLocation?, image: UIImage, place: Place) {
         super.init(location: location, image: image)
-        self.pinID = pinID
+        self.place = place
     }
 }

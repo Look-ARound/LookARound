@@ -92,7 +92,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         sceneLocationView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
         sceneLocationView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
         sceneLocationView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-                
+        
         //sceneLocationView.showAxesNode = true
         sceneLocationView.locationDelegate = self
         //sceneLocationView.locationEstimateMethod = .mostRelevantEstimate
@@ -102,6 +102,15 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
             return
         }
         currentLocation = initialLocation
+        
+        // Add a Tap Gesture Recognizer to detect taps on AnnotationNodes in AR
+        sceneLocationView.isUserInteractionEnabled = true
+        let tapRecognizer = UITapGestureRecognizer()
+        tapRecognizer.numberOfTapsRequired = 1
+        tapRecognizer.numberOfTouchesRequired = 1
+        tapRecognizer.addTarget(self, action: #selector(sceneTapped(recognizer:)))
+        sceneLocationView.gestureRecognizers = [tapRecognizer]
+        
         performFirstSearch()
     }
     
@@ -138,7 +147,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
             let place = places[index]
             
             let name = place.name
-            let placeID = place.id
+            let idName = String(place.id)
             let pinName = "pin"
             
             let pinCoordinate = CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
@@ -147,7 +156,8 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
             let origImage = UIImage(named: pinName)!
             let pinImage =  origImage.addText(name as NSString, atPoint: CGPoint(x: 15, y: 0), textColor:nil, textFont:UIFont.systemFont(ofSize: 26))
             
-            let pinLocationNode = AnnotationNode(location: pinLocation, image: pinImage, pinID: placeID)
+            let pinLocationNode = AnnotationNode(location: pinLocation, image: pinImage, place: place)
+            pinLocationNode.annotationNode.name = idName
             
             // Setting this to false for testing in suburbs where pins are widely spread out
             // Change this to true to test overlay on actual buildings in a downtown
@@ -204,6 +214,29 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         filterVC.coordinates = coordinates
         
         present(filterNVC, animated: true, completion: nil)
+    }
+    
+    @objc func sceneTapped(recognizer: UITapGestureRecognizer) {
+        let location = recognizer.location(in: sceneLocationView)
+        
+        let hitResults = sceneLocationView.hitTest(location, options: nil)
+        if hitResults.count > 0 {
+            let result = hitResults[0]
+            let resultnode = result.node
+            guard let nodeName = resultnode.name else {
+                print("node has no name")
+                return
+            }
+            guard let tappedNode = locationNodes.filter({ $0.annotationNode.name == nodeName }).first else {
+                print("could not find the annotationNode")
+                return
+            }
+            guard let tappedPlace = tappedNode.place else {
+                print("no place attached to node")
+                return
+            }
+            showDetailVC(forPlace: tappedPlace)
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
