@@ -7,8 +7,21 @@
 //
 
 import UIKit
-import ARCL
+import CoreLocation
 
 class AnnotationNode: LocationAnnotationNode {
-
+    var place: Place?
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override init(location: CLLocation?, image: UIImage) {
+        super.init(location: location, image: image)
+    }
+    
+    public init(location: CLLocation?, image: UIImage, place: Place) {
+        super.init(location: location, image: image)
+        self.place = place
+    }
 }
