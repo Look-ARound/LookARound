@@ -36,6 +36,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        LocationService.shared.locationManager = sceneLocationView.locationManager
         
         addARScene()
         initMap()
