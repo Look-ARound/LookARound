@@ -321,14 +321,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     
     // MARK: - ARMapViewDelegate
     func mapView(mapView: MapView, didSelectPlace place: Place) {
-        let storyboard = UIStoryboard(name: "Detail", bundle: nil)
-        let detailNVC = storyboard.instantiateViewController(withIdentifier: "DetailNavigationController") as! UINavigationController
-        
-        let detailVC = detailNVC.topViewController as! PlaceDetailTableViewController
-        detailVC.place = place
-        detailVC.delegate = self
-
-        present(detailNVC, animated: true, completion: nil)
+        showDetailVC(forPlace: place)
     }
     
     func getDirections(destLat: Double, destLong: Double) {
@@ -337,10 +330,13 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     
     func showDetailVC(forPlace place: Place) {
         let storyboard = UIStoryboard(name: "Detail", bundle: nil)
-        let detailViewController = storyboard.instantiateViewController(withIdentifier: "detailViewController") as! PlaceDetailTableViewController
-        detailViewController.place = place
+        let detailNVC = storyboard.instantiateViewController(withIdentifier: "DetailNavigationController") as! UINavigationController
         
-        self.navigationController?.pushViewController(detailViewController, animated: true)
+        let detailVC = detailNVC.topViewController as! PlaceDetailTableViewController
+        detailVC.place = place
+        detailVC.delegate = self
+        
+        present(detailNVC, animated: true, completion: nil)
     }
     
     // MARK: - SceneLocationViewDelegate
