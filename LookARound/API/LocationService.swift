@@ -16,5 +16,9 @@ class LocationService {
     func getCurrentLocation() -> CLLocation? {
         return locationManager?.currentLocation
     }
+    
+    func getCurrentCoordinates() -> CLLocationCoordinate2D? {
+        return getCurrentLocation()?.coordinate
+    }
 
 }

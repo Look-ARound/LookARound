@@ -21,13 +21,6 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     var mapView: MapView!
     let sceneLocationView = SceneLocationView()
     var locationNodes = [AnnotationNode]()
-    var currentLocation: CLLocation! {
-        didSet {
-            currentCoordinates = currentLocation.coordinate
-        }
-    }
-    var currentCoordinates: CLLocationCoordinate2D?
-    
     var mapTop: NSLayoutConstraint!
     var mapBottom: NSLayoutConstraint!
     
@@ -90,10 +83,6 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     // MARK: - 2D Map setup
     func initMap()
     {
-        guard let coordinates = currentCoordinates else {
-            print("not ready for search - no coordinates!")
-            return
-        }
         //mapView = MapView(at: coordinates)
         mapView = MapView()
         mapView.alpha = 0.9
@@ -130,12 +119,6 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         //sceneLocationView.locationEstimateMethod = .mostRelevantEstimate
         sceneLocationView.locationEstimateMethod = .coreLocationDataOnly
         
-        guard let initialLocation = sceneLocationView.currentLocation() else {
-            print("couldn't get current location!")
-            return
-        }
-        currentLocation = initialLocation
-        
         // Add a Tap Gesture Recognizer to detect taps on AnnotationNodes in AR
         sceneLocationView.isUserInteractionEnabled = true
         let tapRecognizer = UITapGestureRecognizer()
@@ -152,7 +135,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
                           FilterCategory.Arts_Entertainment, FilterCategory.Travel_Transportation,
                           FilterCategory.Fitness_Recreation]
 
-        guard let coordinates = currentCoordinates else {
+        guard let coordinates = LocationService.shared.getCurrentCoordinates() else {
             print("not ready for search - no coordinates!")
             return
         }
@@ -171,7 +154,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         removeExistingPins()
         
         // Add new pins
-        guard let coordinates = currentCoordinates else {
+        guard let coordinates = LocationService.shared.getCurrentCoordinates() else {
             print("not ready for search - no coordinates!")
             return
         }
@@ -257,8 +240,8 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         
         let filterVC = filterNVC.topViewController as! FilterViewController
         filterVC.delegate = self
-        guard let coordinates = currentCoordinates else {
-            print("not ready for filters - no coordinates!")
+        guard let coordinates = LocationService.shared.getCurrentCoordinates() else {
+            print("not ready for search - no coordinates!")
             return
         }
         filterVC.coordinates = coordinates
