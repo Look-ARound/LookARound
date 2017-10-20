@@ -8,6 +8,11 @@
 
 import UIKit
 import MapKit
+import CoreLocation
+
+@objc protocol PlaceDetailTableViewControllerDelegate {
+    @objc optional func getDirections( destLat: Double, destLong: Double )
+}
 
 internal class PlaceDetailTableViewController: UITableViewController {
     
@@ -21,8 +26,10 @@ internal class PlaceDetailTableViewController: UITableViewController {
     @IBOutlet private var ratingView: HCSStarRatingView!
     @IBOutlet private var placeMapView: MKMapView!
     @IBOutlet private var addressLabel: UILabel!
+    @IBOutlet private weak var directionsButton: UIButton!
     
     internal var place: Place?
+    var delegate: PlaceDetailTableViewControllerDelegate?
     
     // MARK: - Lifecycles
     
@@ -54,6 +61,10 @@ internal class PlaceDetailTableViewController: UITableViewController {
         ratingView.value = CGFloat(place.rating ?? 0)
         addressLabel.text = place.address
         contextLabel.text = place.context
+        
+        directionsButton.layer.cornerRadius = directionsButton.frame.size.height * 0.5
+        directionsButton.clipsToBounds = true
+        
         setupMapView()
     }
     
@@ -65,6 +76,16 @@ internal class PlaceDetailTableViewController: UITableViewController {
         annotation.coordinate = place.coordinate
         placeMapView.addAnnotation(annotation)
         placeMapView.showAnnotations([annotation], animated: true)
+    }
+    
+    @IBAction func onDirectionsButton(_ sender: Any) {
+        delegate?.getDirections?(destLat: (place?.latitude)!, destLong: (place?.longitude)!)
+        dismiss(animated: true, completion: nil)
+        
+    }
+    
+    @IBAction func onCancelButton(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

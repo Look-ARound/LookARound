@@ -13,7 +13,7 @@ protocol ARMapViewDelegate : NSObjectProtocol {
     func mapView(mapView : MapView, didSelectPlace place: Place)
 }
 
-class MapView: UIView, MKMapViewDelegate {
+class MapView: UIView {
 
     @IBOutlet var contentView: UIView!
     @IBOutlet weak var mapView: MKMapView!
@@ -75,7 +75,29 @@ class MapView: UIView, MKMapViewDelegate {
         mapView.removeAnnotations(mapView.annotations)
     }
     
-    // MARK: - MKMapViewDelegate
+    func getDirections( source: CLLocationCoordinate2D, dest: CLLocationCoordinate2D ) {
+        let request = MKDirectionsRequest()
+        request.source = MKMapItem(placemark: MKPlacemark(coordinate: source, addressDictionary: nil))
+        request.destination = MKMapItem(placemark: MKPlacemark(coordinate: dest, addressDictionary: nil))
+        request.requestsAlternateRoutes = true
+        request.transportType = .automobile
+        
+        let directions = MKDirections(request: request)
+        
+        directions.calculate { [unowned self] response, error in
+            guard let unwrappedResponse = response else { return }
+            
+            for route in unwrappedResponse.routes {
+                self.mapView.add(route.polyline)
+                self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
+            }
+        }
+    }
+}
+
+// MARK: - Delegates
+extension MapView: MKMapViewDelegate {
+
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if let annotation = view.annotation {
             if let name = annotation.title {
@@ -84,6 +106,12 @@ class MapView: UIView, MKMapViewDelegate {
                 }
             }
         }
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
+        renderer.strokeColor = UIColor.blue
+        return renderer
     }
 }
 

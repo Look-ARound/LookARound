@@ -13,7 +13,7 @@ import CoreLocation
 import ARKit
 
 @available(iOS 11.0, *)
-class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterViewControllerDelegate, ARMapViewDelegate {
+class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterViewControllerDelegate, ARMapViewDelegate, PlaceDetailTableViewControllerDelegate {
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var mapButton: UIButton!
     @IBOutlet var contentView: UIView!
@@ -321,7 +321,18 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     
     // MARK: - ARMapViewDelegate
     func mapView(mapView: MapView, didSelectPlace place: Place) {
-        showDetailVC(forPlace: place)
+        let storyboard = UIStoryboard(name: "Detail", bundle: nil)
+        let detailNVC = storyboard.instantiateViewController(withIdentifier: "DetailNavigationController") as! UINavigationController
+        
+        let detailVC = detailNVC.topViewController as! PlaceDetailTableViewController
+        detailVC.place = place
+        detailVC.delegate = self
+
+        present(detailNVC, animated: true, completion: nil)
+    }
+    
+    func getDirections(destLat: Double, destLong: Double) {
+        mapView.getDirections( source: (LocationService.shared.getCurrentLocation()?.coordinate)!, dest: CLLocationCoordinate2D(latitude: destLat, longitude: destLong))
     }
     
     func showDetailVC(forPlace place: Place) {
