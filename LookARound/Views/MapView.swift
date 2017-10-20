@@ -75,7 +75,14 @@ class MapView: UIView {
         mapView.removeAnnotations(mapView.annotations)
     }
     
+    func removeDirections() {
+        let overlays = mapView.overlays
+        mapView.removeOverlays(overlays)
+    }
+    
     func getDirections( source: CLLocationCoordinate2D, dest: CLLocationCoordinate2D ) {
+        removeDirections()
+        
         let request = MKDirectionsRequest()
         request.source = MKMapItem(placemark: MKPlacemark(coordinate: source, addressDictionary: nil))
         request.destination = MKMapItem(placemark: MKPlacemark(coordinate: dest, addressDictionary: nil))

@@ -233,7 +233,14 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     
     // MARK: - Button interactions
     @IBAction func onMapButton(_ sender: Any) {
-        
+        slideMap()
+    }
+    
+    func isMapHidden() -> Bool {
+        return !(self.mapBottom?.constant == 0)
+    }
+    
+    func slideMap() {
         // Slide map up/down from bottom
         let distance = self.mapBottom?.constant == 0 ? mapView.frame.height : 0
         self.mapBottom?.constant = distance
@@ -325,6 +332,9 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     }
     
     func getDirections(destLat: Double, destLong: Double) {
+        if isMapHidden() {
+            slideMap()
+        }
         mapView.getDirections( source: (LocationService.shared.getCurrentLocation()?.coordinate)!, dest: CLLocationCoordinate2D(latitude: destLat, longitude: destLong))
     }
     
