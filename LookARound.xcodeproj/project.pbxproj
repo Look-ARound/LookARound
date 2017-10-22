@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		09A6B8D38A0198D6D8F57523 /* Pods_LookARound.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29FB2778497F0154DB2D1406 /* Pods_LookARound.framework */; };
-		49412ED01F8E7E5400F8830C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49412ECF1F8E79FD00F8830C /* GoogleService-Info.plist */; };
 		4979A2841F926B9F007071E2 /* HCSStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4979A2831F926B9F007071E2 /* HCSStarRatingView.m */; };
 		4979A2871F93F97D007071E2 /* PlaceDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4979A2861F93F97D007071E2 /* PlaceDetailTableViewController.swift */; };
 		70C803471F92DDAA007048F3 /* MapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C803461F92DDAA007048F3 /* MapView.xib */; };
@@ -57,7 +56,6 @@
 
 /* Begin PBXFileReference section */
 		29FB2778497F0154DB2D1406 /* Pods_LookARound.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LookARound.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		49412ECF1F8E79FD00F8830C /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "LookARound/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		4979A2811F926B83007071E2 /* HCSStarRatingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCSStarRatingView.h; sourceTree = "<group>"; };
 		4979A2821F926B9F007071E2 /* LookARound-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LookARound-Bridging-Header.h"; sourceTree = "<group>"; };
 		4979A2831F926B9F007071E2 /* HCSStarRatingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HCSStarRatingView.m; sourceTree = "<group>"; };
@@ -192,7 +190,6 @@
 				7734356E1F8C9C1500375221 /* Scene.swift */,
 				773435751F8C9C1500375221 /* Assets.xcassets */,
 				7734357A1F8C9C1500375221 /* Info.plist */,
-				49412ECF1F8E79FD00F8830C /* GoogleService-Info.plist */,
 				773435771F8C9C1500375221 /* LaunchScreen.storyboard */,
 			);
 			path = LookARound;
@@ -343,7 +340,6 @@
 			files = (
 				70C803471F92DDAA007048F3 /* MapView.xib in Resources */,
 				7734356D1F8C9C1500375221 /* Scene.sks in Resources */,
-				49412ED01F8E7E5400F8830C /* GoogleService-Info.plist in Resources */,
 				773435791F8C9C1500375221 /* LaunchScreen.storyboard in Resources */,
 				773435891F8C9CDF00375221 /* Filter.storyboard in Resources */,
 				773435761F8C9C1500375221 /* Assets.xcassets in Resources */,
