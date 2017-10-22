@@ -8,6 +8,12 @@
 
 import Foundation
 
+var firebaseListIDKey = "listID"
+var firebaseListNameKey = "listName"
+var firebaseCreatedByUserIDKey = "createdByUserID"
+var firebasePlaceIDArrayKey = "placeIDs"
+
+
 class List: NSObject {
     var id: UUID!
     var name: String!
@@ -16,15 +22,29 @@ class List: NSObject {
     
     init(listID : String!, dictionary: [String : AnyObject?]!) {
         self.id = UUID(uuidString: listID)
-        self.name = dictionary["listName"] as! String
+        self.name = dictionary[firebaseListNameKey] as! String
         
-        let userIDString = dictionary["createdByUserID"] as! String
+        let userIDString = dictionary[firebaseCreatedByUserIDKey] as! String
         self.createdByUserID = UUID(uuidString: userIDString)
         
-        if let placeIDStrings = dictionary["placeIDs"] as? [String] {
+        if let placeIDStrings = dictionary[firebasePlaceIDArrayKey] as? [String] {
             for placeStr in placeIDStrings {
                 self.placeIDs.append(UUID(uuidString: placeStr)!)
             }
         }
+    }
+    
+    func firebaseRepresentation() -> NSDictionary {
+        let dict : NSMutableDictionary
+        dict[firebaseListNameKey] = self.name
+        dict[firebaseCreatedByUserIDKey] = self.id.uuidString
+        
+        // Change placeIDs to UUID strings
+        var placeIDStrings = [String]()
+        for placeID in self.placeIDs {
+            placeIDStrings.append(placeID.uuidString)
+        }
+        
+        dict[firebasePlaceIDArrayKey] = placeIDStrings
     }
 }

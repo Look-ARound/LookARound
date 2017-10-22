@@ -13,6 +13,16 @@ class DatabaseRequests {
     var ref: DatabaseReference = Database.database().reference()
     var fetchedOnce : Bool = false
     var allLists = [List]()
+    var listsPath = "lists"
+    
+    // Use this method to create/edit a list
+    func updateList(list: List) -> Void {
+        self.ref.child(listsPath).setValue([list.id.uuidString : list.firebaseRepresentation()])
+    }
+    
+    func deleteList(list: List) -> Void {
+        self.ref.child(listsPath).child(list.id.uuidString).removeValue()
+    }
     
     func fetchCurrentUserLists(success: @escaping ([List]?)->(), failure: @escaping (Error)->()) -> Void {
         var currentUserLists = [List]()
@@ -39,7 +49,7 @@ class DatabaseRequests {
             return
         }
         
-        ref.child("lists").observe(DataEventType.value) { (dataSnapshot: DataSnapshot) in
+        ref.child(listsPath).observe(DataEventType.value) { (dataSnapshot: DataSnapshot) in
             if let listDicts = dataSnapshot.value as? [String : AnyObject?] {
                 for (listIDStr, listDict) in listDicts {
                     let newList = List(listID: listIDStr, dictionary: listDict as! [String : AnyObject?])
