@@ -49,22 +49,18 @@ class LoginViewController: UIViewController, LoginButtonDelegate {
     @IBAction func onAboutMe(_ sender: Any) {
         print("fetching me")
         print("accessToken: \(String(describing: AccessToken.current))")
-        let connection = GraphRequestConnection()
-        connection.add(MyProfileRequest()) { response, result in
-            switch result {
-            case .success(let response):
-                self.nameLabel.text = response.name
-                self.nameLabel.sizeToFit()
-                let url = URL(string: response.photoURL)
-                self.profileImageView.setImageWith(url!)
-                print("Custom Graph Request Succeeded: \(response)")
-                print("My facebook id is \(response.id)")
-                print("My name is \(response.name)")
-            case .failed(let error):
-                print("Custom Graph Request Failed: \(error)")
+        ProfileRequest().fetchCurrentUser(success: { (user : User) in
+            self.nameLabel.text = user.name
+            self.nameLabel.sizeToFit()
+            if let url = URL(string: user.profileImageURL!) {
+                self.profileImageView.setImageWith(url)
             }
+            print("Custom Graph Request Succeeded")
+            print("My facebook id is \(user.id)")
+            print("My name is \(user.name)")
+        }) { (error: Error) in
+            print("Custom Graph Request Failed: \(error)")
         }
-        connection.start()
     }
     
     // Sample code for calling a place search to request an array of places near you

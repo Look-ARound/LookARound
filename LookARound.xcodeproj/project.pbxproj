@@ -17,6 +17,8 @@
 		7469736E1F9297D40067D2B9 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7469736D1F9297D40067D2B9 /* FilterViewController.swift */; };
 		746973701F929C750067D2B9 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7469736F1F929C750067D2B9 /* FilterCell.swift */; };
 		746973881F92DDFE0067D2B9 /* FilterUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746973871F92DDFE0067D2B9 /* FilterUtilities.swift */; };
+		7478B9BD1F9C5BFA00EB62F5 /* DatabaseRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7478B9BC1F9C5BFA00EB62F5 /* DatabaseRequests.swift */; };
+		7478B9BF1F9C5C8000EB62F5 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7478B9BE1F9C5C8000EB62F5 /* List.swift */; };
 		7493DEBC1F940CCA00E30460 /* LoginCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7493DEBB1F940CCA00E30460 /* LoginCell.swift */; };
 		7734356B1F8C9C1500375221 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7734356A1F8C9C1500375221 /* AppDelegate.swift */; };
 		7734356D1F8C9C1500375221 /* Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7734356C1F8C9C1500375221 /* Scene.sks */; };
@@ -68,6 +70,8 @@
 		7469736D1F9297D40067D2B9 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		7469736F1F929C750067D2B9 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 		746973871F92DDFE0067D2B9 /* FilterUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterUtilities.swift; sourceTree = "<group>"; };
+		7478B9BC1F9C5BFA00EB62F5 /* DatabaseRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseRequests.swift; sourceTree = "<group>"; };
+		7478B9BE1F9C5C8000EB62F5 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 		7493DEBB1F940CCA00E30460 /* LoginCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCell.swift; sourceTree = "<group>"; };
 		773435671F8C9C1500375221 /* LookARound.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LookARound.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7734356A1F8C9C1500375221 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -205,6 +209,7 @@
 				777763BB1F8E11D00018D621 /* LABrand.swift */,
 				77D0A1591F9098A600597CAC /* Place.swift */,
 				778B6DC41F9704B10033F8A9 /* AnnotationNode.swift */,
+				7478B9BE1F9C5C8000EB62F5 /* List.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -226,6 +231,7 @@
 				777898E51F903C06004EAE3D /* GraphRequests.swift */,
 				746973871F92DDFE0067D2B9 /* FilterUtilities.swift */,
 				70E760CC1F99DA4A0063F238 /* LocationService.swift */,
+				7478B9BC1F9C5BFA00EB62F5 /* DatabaseRequests.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -382,8 +388,11 @@
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -394,8 +403,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -441,6 +453,7 @@
 				778FFD591F98056E00EDE7C7 /* SceneLocationEstimate.swift in Sources */,
 				7734356B1F8C9C1500375221 /* AppDelegate.swift in Sources */,
 				778FFD5C1F98056E00EDE7C7 /* SCNNode+Extensions.swift in Sources */,
+				7478B9BF1F9C5C8000EB62F5 /* List.swift in Sources */,
 				778B6DC51F9704B10033F8A9 /* AnnotationNode.swift in Sources */,
 				778FFD581F98056E00EDE7C7 /* CGPoint+Extensions.swift in Sources */,
 				70C803491F92DE98007048F3 /* MapView.swift in Sources */,
@@ -457,6 +470,7 @@
 				77AA66291F8EF61900F477DB /* MapItem.swift in Sources */,
 				7493DEBC1F940CCA00E30460 /* LoginCell.swift in Sources */,
 				70E760CD1F99DA4A0063F238 /* LocationService.swift in Sources */,
+				7478B9BD1F9C5BFA00EB62F5 /* DatabaseRequests.swift in Sources */,
 				778FFD5D1F98056E00EDE7C7 /* SCNVector3+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -600,7 +614,7 @@
 				DEVELOPMENT_TEAM = 4N63YKK822;
 				INFOPLIST_FILE = LookARound/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wangela.LookARound;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.LookARound;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "LookARound/3rd Party Libraries/LookARound-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -619,7 +633,7 @@
 				DEVELOPMENT_TEAM = 4N63YKK822;
 				INFOPLIST_FILE = LookARound/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wangela.LookARound;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codepath.LookARound;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "LookARound/3rd Party Libraries/LookARound-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;

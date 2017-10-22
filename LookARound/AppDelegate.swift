@@ -9,6 +9,7 @@
 import UIKit
 import FacebookCore
 import FacebookLogin
+import FirebaseCore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,15 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        // FirebaseApp.configure()
-       let storyboard = UIStoryboard(name: "Login", bundle: nil)
-//        let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
-
-//        let storyboard = UIStoryboard(name: "Filter", bundle: nil)
-//        let filterVC = storyboard.instantiateViewController(withIdentifier: "FilterNavigationControllerID")
-//
-//        window?.rootViewController = filterVC
-//        window?.makeKeyAndVisible()
+        FirebaseApp.configure()
         
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         

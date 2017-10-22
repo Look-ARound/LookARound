@@ -10,9 +10,11 @@ target 'LookARound' do
   pod 'BDBOAuth1Manager'
   pod 'MBProgressHUD'
   pod 'SwiftyJSON'
-  # pod 'Firebase/Core'
+  pod 'FirebaseCore’
+  pod 'Firebase/Database'
   pod 'FacebookCore'
   pod 'FacebookLogin'
+
   # pod 'ARCL'
   # pod 'Mapbox-iOS-SDK', '~> 3.6'
   # pod 'FLEX', '~> 2.0', :configurations => ['Debug']

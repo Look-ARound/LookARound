@@ -131,6 +131,7 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
     }
     
     func performFirstSearch() {
+        // TODO: fix the initialization code. Currently in onmap button
         let categories = [FilterCategory.Food_Beverage, FilterCategory.Shopping_Retail,
                           FilterCategory.Arts_Entertainment, FilterCategory.Travel_Transportation,
                           FilterCategory.Fitness_Recreation]
@@ -211,7 +212,6 @@ class ARoundViewController: UIViewController, SceneLocationViewDelegate, FilterV
         
         // Remove pins from 2D map
         mapView.removeAnnotations()
-        
     }
     
     // MARK: - Button interactions

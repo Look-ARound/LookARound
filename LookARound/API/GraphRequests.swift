@@ -157,59 +157,72 @@ private struct PlaceSearchResponse: GraphResponseProtocol {
     }
 }
 
-/* Objective-C version
- FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc]
- initWithGraphPath:@"/search"
- parameters:@{ @"type": @"place",@"center": @"37.4816734,-122.1556204",@"categories": @"["FOOD_BEVERAGE","FITNESS_RECREATION","SHOPPING_RETAIL"]",@"fields": @"name,about,id,location,context,engagement,checkins,picture,photos,cover",}
- HTTPMethod:@"GET"];
- [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
- // Insert your code here
- }];
- 
- Android SDK version
- GraphRequest request = GraphRequest.newGraphPathRequest(
- accessToken,
- "/search",
- new GraphRequest.Callback() {
- @Override
- public void onCompleted(GraphResponse response) {
- // Insert your code here
- }
- });
- 
- Bundle parameters = new Bundle();
- parameters.putString("type", "place");
- parameters.putString("center", "37.4816734,-122.1556204");
- parameters.putString("categories", "["FOOD_BEVERAGE","FITNESS_RECREATION","SHOPPING_RETAIL"]");
- parameters.putString("fields", "name,about,id,location,context,engagement,checkins,picture,photos,cover");
- request.setParameters(parameters);
- request.executeAsync();
- */
-
 // MARK: - Profile Graph Request
-struct MyProfileRequest: GraphRequestProtocol {
-    struct Response: GraphResponseProtocol {
-        var id: String
-        var name: String
-        var photoURL: String
-        
-        init(rawResponse: Any?) {
-            // Decode JSON from rawResponse into other properties here.
-            let json = JSON(rawResponse!)
-            print(json)
-            id = json["id"].stringValue
-            name = json["name"].stringValue
-            photoURL = json["picture"]["data"]["url"].stringValue
-            
-            print(id)
-            print(name)
-            print(photoURL)
+var LAFBUserIDKey : String = "FBUserIDKey"
+
+class ProfileRequest {
+    func fetchCurrentUserID(success: @escaping (UUID)->(), failure: @escaping (Error)->()) -> Void {
+        if let defaultsUserID = UserDefaults.standard.object(forKey: LAFBUserIDKey) {
+            success(defaultsUserID as! UUID)
+        } else {
+            // Fetch user profile first, then get the ID
+            fetchCurrentUser(success: { (user: User) in
+                success(user.id)
+            }, failure: { (error: Error) in
+                failure(error)
+            })
         }
     }
     
+    func fetchCurrentUser(success: @escaping (User)->(), failure: @escaping (Error)->()) -> Void {
+        let currentUserRequest = MyProfileRequest()
+        
+        let currentUserConnection = GraphRequestConnection()
+        currentUserConnection.add(currentUserRequest) { (response, result: GraphRequestResult) in
+            switch result {
+            case .success(let response):
+                // Save userID in defaults
+                UserDefaults.standard.set(response.user.id, forKey: LAFBUserIDKey)
+                
+                success(response.user)
+            case .failed(let error):
+                // Remove userID from defaults
+                UserDefaults.standard.removeObject(forKey: LAFBUserIDKey)
+                
+                failure(error)
+            }
+        }
+        currentUserConnection.start()
+    }
+}
+
+fileprivate struct MyProfileResponse : GraphResponseProtocol {
+    var user: User
+    
+    init(rawResponse: Any?) {
+        // Decode JSON from rawResponse into other properties here.
+        let json = JSON(rawResponse!)
+        print(json)
+        let idStr = json["id"].stringValue
+        let name = json["name"].stringValue
+        let photoURL = json["picture"]["data"]["url"].stringValue
+        
+        user = User()
+        user.id = UUID(uuidString: idStr)
+        user.name = name
+        user.profileImageURL = photoURL
+        
+        print(idStr)
+        print(name)
+        print(photoURL)
+    }
+}
+
+fileprivate struct MyProfileRequest: GraphRequestProtocol {
     var graphPath = "/me"
     var parameters: [String : Any]? = ["fields": "id, name, picture{url}"]
     var accessToken = AccessToken.current
     var httpMethod: GraphRequestHTTPMethod = .GET
     var apiVersion: GraphAPIVersion = .defaultVersion
+    typealias Response = MyProfileResponse
 }
