@@ -35,7 +35,7 @@ class List: NSObject {
     }
     
     func firebaseRepresentation() -> NSDictionary {
-        let dict : NSMutableDictionary
+        let dict = NSMutableDictionary()
         dict[firebaseListNameKey] = self.name
         dict[firebaseCreatedByUserIDKey] = self.id.uuidString
         
@@ -46,5 +46,7 @@ class List: NSObject {
         }
         
         dict[firebasePlaceIDArrayKey] = placeIDStrings
+        
+        return dict as NSDictionary
     }
 }

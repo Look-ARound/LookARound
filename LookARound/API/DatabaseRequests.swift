@@ -16,7 +16,7 @@ class DatabaseRequests {
     var listsPath = "lists"
     
     // Use this method to create/edit a list
-    func updateList(list: List) -> Void {
+    func createOrUpdateList(list: List) -> Void {
         self.ref.child(listsPath).setValue([list.id.uuidString : list.firebaseRepresentation()])
     }
     
