@@ -18,6 +18,7 @@
 		746973881F92DDFE0067D2B9 /* FilterUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746973871F92DDFE0067D2B9 /* FilterUtilities.swift */; };
 		7478B9BD1F9C5BFA00EB62F5 /* DatabaseRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7478B9BC1F9C5BFA00EB62F5 /* DatabaseRequests.swift */; };
 		7478B9BF1F9C5C8000EB62F5 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7478B9BE1F9C5C8000EB62F5 /* List.swift */; };
+		7478B9C51F9D249800EB62F5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7478B9C41F9D249800EB62F5 /* GoogleService-Info.plist */; };
 		7493DEBC1F940CCA00E30460 /* LoginCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7493DEBB1F940CCA00E30460 /* LoginCell.swift */; };
 		7734356B1F8C9C1500375221 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7734356A1F8C9C1500375221 /* AppDelegate.swift */; };
 		7734356D1F8C9C1500375221 /* Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7734356C1F8C9C1500375221 /* Scene.sks */; };
@@ -70,6 +71,7 @@
 		746973871F92DDFE0067D2B9 /* FilterUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterUtilities.swift; sourceTree = "<group>"; };
 		7478B9BC1F9C5BFA00EB62F5 /* DatabaseRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseRequests.swift; sourceTree = "<group>"; };
 		7478B9BE1F9C5C8000EB62F5 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
+		7478B9C41F9D249800EB62F5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7493DEBB1F940CCA00E30460 /* LoginCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCell.swift; sourceTree = "<group>"; };
 		773435671F8C9C1500375221 /* LookARound.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LookARound.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7734356A1F8C9C1500375221 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 		773435691F8C9C1500375221 /* LookARound */ = {
 			isa = PBXGroup;
 			children = (
+				7478B9C41F9D249800EB62F5 /* GoogleService-Info.plist */,
 				4979A2801F926B5C007071E2 /* 3rd Party Libraries */,
 				777898E41F903B5F004EAE3D /* API */,
 				773435851F8C9C6B00375221 /* Storyboards */,
@@ -340,6 +343,7 @@
 			files = (
 				70C803471F92DDAA007048F3 /* MapView.xib in Resources */,
 				7734356D1F8C9C1500375221 /* Scene.sks in Resources */,
+				7478B9C51F9D249800EB62F5 /* GoogleService-Info.plist in Resources */,
 				773435791F8C9C1500375221 /* LaunchScreen.storyboard in Resources */,
 				773435891F8C9CDF00375221 /* Filter.storyboard in Resources */,
 				773435761F8C9C1500375221 /* Assets.xcassets in Resources */,
